@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>SCENE_TITLE</title>
+  <style>
+    *{box-sizing:border-box}[hidden]{display:none!important}
+    html,body,.page,#stage{margin:0;width:100%;height:100%;overflow:hidden;background:#fff}
+    .page{position:relative}#stage{position:absolute;inset:0}
+    #stage canvas{display:block;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges}
+    .loading{position:absolute;inset:0;display:grid;place-items:center;background:#fff;pointer-events:none}
+    .loading.is-ready{display:none}.loading.error{padding:32px;text-align:center;color:#52604e;font:13px/1.8 Arial,"Microsoft YaHei",sans-serif}
+  </style>
+</head>
+<body>
+  <main class="page" aria-label="SCENE_TITLE三维微缩场景">
+    <div id="stage" role="img" aria-label="SCENE_TITLE，固定等距视角，白色背景，像素艺术循环动画"></div>
+    <div id="loading" class="loading" role="status" aria-label="正在加载场景"></div>
+    <!-- Compatibility controls stay inaccessible and invisible; project renderers are preserved. -->
+    <div class="toolbar" hidden aria-hidden="true">
+      <button id="pause" type="button"><span id="pause-label"></span></button>
+      <button id="speed" type="button"></button><button id="pixels" type="button"></button><button id="replay" type="button"></button>
+      <span id="activity"></span><span id="announcement"></span>
+    </div>
+    <noscript>请启用 JavaScript 以查看三维场景。</noscript>
+  </main>
+  <script>/* EMBEDDED_APP */</script>
+</body>
+</html>
