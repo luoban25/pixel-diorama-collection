@@ -1,6 +1,6 @@
-# Pixel scene collection: independent cricket, fishing and Western railway projects
+# Pixel scene collection: cricket, fishing, Western railway and street basketball
 
-The delivered `index.html` is a self-contained scene switcher. Cricket, the fishing pond and the Western railway are separate preserved projects, embedded as independent renderers. Only the active project animates. The only visible interface is the three scene buttons at the bottom. All geometry, textures and shader logic run locally, with no CDN requests.
+The delivered `index.html` is a self-contained scene switcher. Cricket, the fishing pond, the Western railway and street basketball are separate preserved projects, embedded as independent renderers. Only the active project animates. The only visible interface is the four scene buttons at the bottom. All geometry, textures and shader logic run locally, with no CDN requests.
 
 ## Visual direction
 
@@ -35,3 +35,9 @@ The delivered `index.html` is a self-contained scene switcher. Cricket, the fish
 - `scenes/western/index.html`: self-contained Western railway delivery.
 - `scenes/cricket/index.html`, `scenes/pond/index.html`: independent clean render pages.
 - `src/gallery.html`, `src/scene-shell.html`: minimal gallery and renderer templates.
+
+## Street basketball
+
+The fourth scene follows the user-supplied image of a weathered blue neighborhood basketball court. It contains two hoops with woven nets, six articulated athletes, four bystanders, two bouncing basketballs, a corner shop, vending machines, bicycle, mature tree, chain-link fencing and utility poles. Geometry and texture canvases are authored locally; the reference image is not embedded.
+
+The perimeter uses thousands of separate opaque ground flecks, with density falling toward open white space. Grass, grit and missing paving tiles interrupt the outline; there is no raised rectangular slab or opaque image plane behind the edge. Tree foliage has small leaf clusters and visible gaps. All figure movement and ball motion repeat on a shared 12-second loop; inactive scenes stop rendering.

@@ -2,7 +2,7 @@
   "name": "pixel-diorama-collection",
   "version": "1.0.0",
   "private": true,
-  "description": "Three self-contained animated Three.js pixel dioramas",
+  "description": "Four self-contained animated Three.js pixel dioramas",
   "scripts": {
     "build": "node build.cjs",
     "dev": "node serve.cjs"

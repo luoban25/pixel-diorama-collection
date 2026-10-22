@@ -1,20 +1,21 @@
 # 像素微缩场景 · Pixel Diorama Collection
 
-[在线浏览西部列车](https://luoban25.github.io/pixel-diorama-collection/?scene=western) · [全部场景](https://luoban25.github.io/pixel-diorama-collection/)
+[在线浏览街头篮球](https://luoban25.github.io/pixel-diorama-collection/?scene=basketball) · [全部场景](https://luoban25.github.io/pixel-diorama-collection/)
 
-三个独立保存的 Three.js 等距微缩场景。白色背景、固定正交相机，页面仅保留底部场景切换。
+四个独立保存的 Three.js 等距微缩场景。白色背景、固定正交相机，页面仅保留底部场景切换。
 
+- **街头篮球**：旧蓝色球场、小卖部、树木、篮架、铁丝网与人物；草地、砂砾和像素碎边自然淡入白色背景，没有厚底座。
 - **西部列车**：红岩荒漠、石拱、木桥峡谷、蒸汽列车、六名奔马骑手、风车和水塔；12 秒循环动画。
 - **钓鱼池塘**：秋色树木、蓝色池水、游鱼与涟漪，两名人物每隔 3 秒触发钓鱼动作。
 - **板球场**：条纹草坪、球场、球员、围栏、树木、灯架与木制看台。
 
-![西部列车场景](previews/western.png)
+![街头篮球场景](previews/basketball.png)
 
 ## 直接打开
 
 GitHub Pages 上可直接浏览，无需登录。也可以下载仓库中的 `index.html`，在支持 WebGL 2 的现代浏览器中打开；所有场景、纹理和 Three.js 代码均已内嵌，离线可用。
 
-独立页面位于 `scenes/cricket/`、`scenes/pond/`、`scenes/western/`。使用 `?scene=western`、`?scene=pond`、`?scene=cricket` 可直接选择项目。
+独立页面位于 `scenes/cricket/`、`scenes/pond/`、`scenes/western/`、`scenes/basketball/`。使用 `?scene=western`、`?scene=pond`、`?scene=cricket`、`?scene=basketball` 可直接选择项目。
 
 ## 源码与重建
 
@@ -26,11 +27,12 @@ npm run build
 npm run dev
 ```
 
-构建会更新自包含的根页面和三个独立页面。提交生成的页面到 `main` 后，GitHub Pages 从仓库根目录发布。
+构建会更新自包含的根页面和四个独立页面。提交生成的页面到 `main` 后，GitHub Pages 从仓库根目录发布。
 
 - `projects/cricket/src/`：板球场。
 - `projects/pond/src/`：秋色钓鱼池塘。
 - `projects/western/src/`：西部列车、地貌与骑手。
+- `projects/basketball/src/`：街头篮球、碎边地表、商店、树木与人物。
 - `src/gallery.html`、`src/scene-shell.html`：极简切换页面与渲染器模板。
 
 未激活的场景停止动画；适配窄屏，并遵循系统减少动态效果偏好。

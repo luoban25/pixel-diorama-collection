@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="板球场、钓鱼池塘与西部列车，独立保存的像素三维微缩场景。">
+  <meta name="description" content="板球场、钓鱼池塘、西部列车与街头篮球，独立保存的像素三维微缩场景。">
   <title>像素微缩场景</title>
   <style>
     :root{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;color:#38503f;background:#fff;-webkit-font-smoothing:antialiased}
@@ -17,7 +17,7 @@
     .scenes button{height:44px;min-width:94px;padding:0 20px;border:0;border-radius:23px;background:transparent;color:#617065;white-space:nowrap;font:12px/1 Arial,"PingFang SC","Microsoft YaHei",sans-serif;cursor:pointer;transition:background-color 160ms ease,color 160ms ease,transform 160ms ease}
     .scenes button:hover{background:#f2f5ee;color:#38503f}.scenes button[aria-pressed="true"]{background:#eaf0e5;color:#38503f}
     .scenes button:focus-visible{outline:2px solid #55764b;outline-offset:4px}.scenes button:active{transform:scale(.96)}
-    @media(max-width:600px){.scenes{bottom:max(24px,env(safe-area-inset-bottom))}.scenes button{min-width:88px;padding:0 18px;font-size:11px}}
+    @media(max-width:600px){.scenes{bottom:max(24px,env(safe-area-inset-bottom))}.scenes{max-width:calc(100vw - 24px)}.scenes button{min-width:0;flex:1;padding:0 13px;font-size:11px}}
     @media(max-height:479px){.scenes{bottom:max(14px,env(safe-area-inset-bottom))}}
     @media(prefers-reduced-motion:reduce){.scenes button{transition:none}}
   </style>
@@ -28,13 +28,14 @@
       <button type="button" data-scene="cricket" aria-controls="scene-cricket" aria-pressed="false">板球场</button>
       <button type="button" data-scene="pond" aria-controls="scene-pond" aria-pressed="false">钓鱼池塘</button>
       <button type="button" data-scene="western" aria-controls="scene-western" aria-pressed="false">西部列车</button>
+      <button type="button" data-scene="basketball" aria-controls="scene-basketball" aria-pressed="false">街头篮球</button>
     </nav>
   </main>
   <script>
     /* EMBEDDED_SCENES */
     (()=>{
       const gallery=document.getElementById('gallery'),buttons=[...document.querySelectorAll('[data-scene]')];
-      const names={cricket:'板球场',pond:'钓鱼池塘',western:'西部列车'},frames=new Map();
+      const names={cricket:'板球场',pond:'钓鱼池塘',western:'西部列车',basketball:'街头篮球'},frames=new Map();
       let active='pond';
       function notify(frame,isActive){frame.contentWindow?.postMessage({type:'diorama:active',active:isActive},'*');}
       function createFrame(id){
