@@ -15,13 +15,12 @@ function buildEnvironment(){
   for(const m of [M.wood,M.woodLight,M.woodDark])m.map=woodTex;
   function face(w,h,texture,x,y,z,parent=props,rotation=0,emissive=0){const material=new THREE.MeshStandardMaterial({map:texture,roughness:.96,side:THREE.DoubleSide,emissive:0xffffff,emissiveIntensity:emissive});const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),material);mesh.position.set(x,y,z);mesh.rotation.y=rotation;mesh.receiveShadow=true;parent.add(mesh);return mesh;}
   function arc(cx,cz,rad,y,start,end,material=M.cream,parent=props,width=.025){const segments=Math.max(16,Math.ceil(Math.abs(end-start)*rad*10));for(let i=0;i<segments;i++){const a=start+(end-start)*i/segments,d=start+(end-start)*(i+1)/segments;r([cx+Math.cos(a)*rad,y,cz+Math.sin(a)*rad],[cx+Math.cos(d)*rad,y,cz+Math.sin(d)*rad],width,material,parent,4);}}
-  // A real broken ground silhouette: individual opaque flecks fade to open white space.
-  // No slab or alpha rectangle sits underneath the perimeter.
+  // The interior stays solid; the outer fringe is made from clustered X marks.
   const positions=[],colors=[],normals=[],uv=[];let edgeFlecks=0,solidCells=0;
   const earthColors=[0xa9a178,0xbdb089,0xc8b98f,0xaaa475,0x8e975d,0x747f44,0xa4a165,0xd0bf96];
   function edgeDistance(x,z){const qx=Math.abs(x)-8.15,qz=Math.abs(z+1.7)-12.0;return -(Math.hypot(Math.max(qx,0),Math.max(qz,0))+Math.min(Math.max(qx,qz),0)-1.05);}
   function appendTile(x,z,size,color){const cc=new THREE.Color(color);const x0=x-size/2,x1=x+size/2,z0=z-size/2,z1=z+size/2;positions.push(x0,0,z0,x0,0,z1,x1,0,z1,x0,0,z0,x1,0,z1,x1,0,z0);for(let j=0;j<6;j++){colors.push(cc.r,cc.g,cc.b);normals.push(0,1,0);uv.push(x*.15,z*.15);}}
-  for(let x=-10.5;x<=10.5;x+=.115)for(let z=-16;z<=12.7;z+=.115){const dist=edgeDistance(x,z),noise=Math.sin(x*2.8+Math.sin(z*1.3))*.20+Math.sin(z*3.7+x)*.16;const density=THREE.MathUtils.smoothstep(dist+noise,-.92,.78);if(rand()>density)continue;const xx=x+(rand()-.5)*.025,zz=z+(rand()-.5)*.025,size=dist<.45?.044+rand()*.081:.119;let color=earthColors[Math.floor(rand()*earthColors.length)];if(dist>1.2&&Math.abs(x)<7.5&&z>-10.3)color=earthColors[Math.floor(rand()*4)];if(dist<1.35)color=[0x4e6936,0x74803b,0x929646,0xadb05b,0xb2aa7b][Math.floor(rand()*5)];appendTile(xx,zz,size,color);if(dist<.7)edgeFlecks++;else solidCells++;}
+  for(let x=-10.5;x<=10.5;x+=.115)for(let z=-16;z<=12.7;z+=.115){const dist=edgeDistance(x,z),noise=Math.sin(x*2.8+Math.sin(z*1.3))*.20+Math.sin(z*3.7+x)*.16;const density=THREE.MathUtils.smoothstep(dist+noise,-.92,.78);if(rand()>density)continue;const xx=x+(rand()-.5)*.025,zz=z+(rand()-.5)*.025,size=dist<.45?.044+rand()*.081:.119;let color=earthColors[Math.floor(rand()*earthColors.length)];if(dist>1.2&&Math.abs(x)<7.5&&z>-10.3)color=earthColors[Math.floor(rand()*4)];if(dist<1.35)color=[0x4e6936,0x74803b,0x929646,0xadb05b,0xb2aa7b][Math.floor(rand()*5)];if(dist<.7){edgeFlecks++;continue;}appendTile(xx,zz,size,color);solidCells++;}
   const groundGeo=new THREE.BufferGeometry();groundGeo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));groundGeo.setAttribute('normal',new THREE.Float32BufferAttribute(normals,3));groundGeo.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));groundGeo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));
   const ground=new THREE.Mesh(groundGeo,new THREE.MeshStandardMaterial({vertexColors:true,roughness:1}));ground.receiveShadow=true;props.add(ground);
   // Sidewalk slabs remain a little uneven. The outside row has missing pieces.
@@ -122,12 +121,38 @@ function buildEnvironment(){
   for(const part of treeParts)treeRoot.attach(part);
   treeRoot.scale.set(1.22,.76,1.14);
   // Herbs and ivy carry the green boundary into the path, fence and masonry cracks.
-  function tuft(x,z,scale=1,y=.025){for(let i=0;i<5;i++){const a=rand()*TAU,h=(.09+rand()*.22)*scale;const blade=b(.026,h,.035,[M.grass,M.grassLight,M.grassDark][i%3],x+Math.cos(a)*.07*scale,y+h/2,z+Math.sin(a)*.07*scale);blade.rotation.z=(rand()-.5)*.6;blade.castShadow=false;}for(let j=0;j<3;j++){const leaf=b(.10*scale,.025,.065*scale,M.grassLight,x+(rand()-.5)*.2*scale,y+.04+rand()*.13*scale,z+(rand()-.5)*.2*scale);leaf.rotation.y=rand()*TAU;leaf.castShadow=false;}}
+  function tuft(x,z,scale=1,y=.025){const start=props.children.length;for(let i=0;i<5;i++){const a=rand()*TAU,h=(.09+rand()*.22)*scale;const blade=b(.026,h,.035,[M.grass,M.grassLight,M.grassDark][i%3],x+Math.cos(a)*.07*scale,y+h/2,z+Math.sin(a)*.07*scale);blade.rotation.z=(rand()-.5)*.6;blade.castShadow=false;}for(let j=0;j<3;j++){const leaf=b(.10*scale,.025,.065*scale,M.grassLight,x+(rand()-.5)*.2*scale,y+.04+rand()*.13*scale,z+(rand()-.5)*.2*scale);leaf.rotation.y=rand()*TAU;leaf.castShadow=false;}if(edgeDistance(x,z)<.7)for(const piece of props.children.slice(start))piece.removeFromParent();}
   for(let i=0;i<840;i++){const x=(rand()-.5)*20,z=rand()*28-15.5,d=edgeDistance(x,z);if(d<-.72||d>1.65||rand()>THREE.MathUtils.smoothstep(d,-.9,.2))continue;tuft(x,z,.4+rand()*.85);}
   for(let i=0;i<170;i++){const x=(rand()-.5)*17.6,z=rand()*25-14.2;if(Math.abs(x)<6.6&&z>-9.4)continue;if(z<-11.5&&x>-5.8&&x<5.5)continue;tuft(x,z,.5+rand()*.55);}
   for(let i=0;i<270;i++){const z=-10+rand()*20,x=7.12+(rand()-.5)*.17,y=.08+Math.pow(rand(),2.0)*2.75;const leaf=b(.085+rand()*.12,.06,.09,[M.grass,M.grassLight,M.grassDark][i%3],x,y,z);leaf.rotation.y=rand()*TAU;}
   for(let i=0;i<140;i++){const x=-8.2+rand()*4.9,y=.1+Math.pow(rand(),1.8)*2.4;const leaf=b(.10,.07,.10,leaves[i%5],x,y,-13.60+(rand()-.5)*.15);leaf.rotation.z=rand()*2;}
-  for(let i=0;i<800;i++){const x=(rand()-.5)*19.5,z=rand()*27-15,d=edgeDistance(x,z);if(d<-.65||Math.abs(x)<6.4&&z>-9.3&&z<9.6)continue;const pebble=b(.025+rand()*.065,.018,.035+rand()*.07,[M.cream,M.grassLight,M.wallDark][i%3],x,.03,z);pebble.rotation.y=rand()*TAU;pebble.castShadow=false;}
+  for(let i=0;i<800;i++){const x=(rand()-.5)*19.5,z=rand()*27-15,d=edgeDistance(x,z);if(d<-.65||Math.abs(x)<6.4&&z>-9.3&&z<9.6)continue;const pebble=b(.025+rand()*.065,.018,.035+rand()*.07,[M.cream,M.grassLight,M.wallDark][i%3],x,.03,z);pebble.rotation.y=rand()*TAU;pebble.castShadow=false;if(d<.7)pebble.removeFromParent();}
+  // Two thin, camera-facing diagonal ribbons make a true X silhouette at every point.
+  // A separate seed preserves all existing court, tree and figure randomization.
+  const crossPositions=[],crossNormals=[],crossColors=[],crossUV=[];
+  const right=new THREE.Vector3(1,0,0).applyQuaternion(camera.quaternion),up=new THREE.Vector3(0,1,0).applyQuaternion(camera.quaternion),front=new THREE.Vector3(0,0,1).applyQuaternion(camera.quaternion);
+  const crossPalette=[0x516b34,0x6d7e38,0x8c9341,0xa5a44c,0xbcb061].map(color=>new THREE.Color(color));
+  let crossSeed=74219,crossCount=0,crossClusters=0;
+  const crossRand=()=>{crossSeed=(1664525*crossSeed+1013904223)>>>0;return crossSeed/4294967296;};
+  function appendCross(x,z,size,color){
+    const center=new THREE.Vector3(x,.037+crossRand()*.018,z),half=size*.5,width=size*.115;
+    for(const slope of [-1,1]){
+      const ax=-half,ay=-half*slope,bx=half,by=half*slope,ox=-slope*width,oy=width;
+      const corners=[[ax+ox,ay+oy],[ax-ox,ay-oy],[bx-ox,by-oy],[bx+ox,by+oy]];
+      for(const i of [0,1,2,0,2,3]){const q=corners[i],point=center.clone().addScaledVector(right,q[0]).addScaledVector(up,q[1]);crossPositions.push(point.x,point.y,point.z);crossNormals.push(front.x,front.y,front.z);crossColors.push(color.r,color.g,color.b);crossUV.push(0,0);}
+    }
+    crossCount++;
+  }
+  for(let x=-10.2;x<=10.2;x+=.42)for(let z=-15.9;z<=12.5;z+=.42){
+    const d=edgeDistance(x,z);if(d<-.85||d>1.0)continue;
+    const pockets=.5+.25*Math.sin(x*2.3+z*.8)+.25*Math.sin(z*2.5-x*.6),fade=THREE.MathUtils.smoothstep(d,-.90,.40);
+    if(crossRand()>(.18+.70*pockets)*fade)continue;
+    const cx=x+(crossRand()-.5)*.25,cz=z+(crossRand()-.5)*.25,count=d<-.25?3+Math.floor(crossRand()*3):7+Math.floor(crossRand()*7),radius=.18+crossRand()*.17;
+    crossClusters++;
+    for(let j=0;j<count;j++){const a=crossRand()*TAU,rr=Math.sqrt(crossRand())*radius,px=cx+Math.cos(a)*rr,pz=cz+Math.sin(a)*rr;if(edgeDistance(px,pz)<-.95)continue;appendCross(px,pz,.095+crossRand()*.055,crossPalette[Math.floor(crossRand()*crossPalette.length)]);}
+  }
+  const crossGeo=new THREE.BufferGeometry();crossGeo.setAttribute('position',new THREE.Float32BufferAttribute(crossPositions,3));crossGeo.setAttribute('normal',new THREE.Float32BufferAttribute(crossNormals,3));crossGeo.setAttribute('color',new THREE.Float32BufferAttribute(crossColors,3));crossGeo.setAttribute('uv',new THREE.Float32BufferAttribute(crossUV,2));
+  const crossMesh=new THREE.Mesh(crossGeo,new THREE.MeshBasicMaterial({vertexColors:true,side:THREE.DoubleSide}));crossMesh.castShadow=false;crossMesh.receiveShadow=false;props.add(crossMesh);
   // Articulated people, built with shoulders, elbows, knees, socks and shoes.
   const athletes=[],people=[],balls=[];
   const skinMats=[mat(0xc59466),mat(0xe0b385),mat(0xb38159),mat(0xd5a375)];
@@ -155,5 +180,5 @@ function buildEnvironment(){
     for(const a of bystanders){a.head.rotation.y=Math.sin(p*2+a.index)*.10;a.torso.rotation.z=Math.sin(p+a.index)*.014;for(const arm of a.arms){arm.upper.rotation.x=a.mode==='seated'?-.65:-.12;arm.upper.rotation.z=arm.side*.13;arm.lower.rotation.x=-.60+Math.sin(p*2+a.index+arm.side)*.08;}if(a.mode==='seated')for(const leg of a.legs)leg.lower.rotation.x=Math.PI/2+Math.sin(p*3+a.index+leg.side)*.08;}
   }
   update(0);
-  return{dynamicRoot,anglers:people,people,athletes,balls,edgeStats:{featherWidth:1.7,flecks:edgeFlecks,solidCells,raisedSlab:false},update,prepareReflection(){}};
+  return{dynamicRoot,anglers:people,people,athletes,balls,edgeStats:{featherWidth:1.7,flecks:crossCount,clusters:crossClusters,shape:'camera-facing X',solidCells,raisedSlab:false,looseSquareFragments:0},update,prepareReflection(){}};
 }
