@@ -27,17 +27,25 @@ The delivered `index.html` is a self-contained scene switcher. Cricket, the fish
 
 ## Files
 
-- `index.html`: minimal three-scene gallery; open directly in a modern browser, including offline.
+- `index.html`: minimal four-scene gallery; open directly in a modern browser, including offline.
 - `projects/cricket/src/`: independent cricket source, restored from the saved pixel cricket project.
 - `projects/pond/src/`: independent fishing pond source.
 - `projects/western/src/`: independently authored Western railway scene based on the user's supplied desert railway image. Train, articulated horses/riders, trestle, layered red rock, stone arch, cacti, wind pump and water tank are procedural Three.js geometry. All textures are local Canvas textures; no downloaded models or image-generation assets are required.
 - `projects/western/src/landscape.js`, `riders.js`: expanded landscape and separate articulated rider construction. The 31 × 25 plateau, joined buttes, frontal low cliffs, broad trestle gorge and camera-facing stone arch follow the supplied image's composition. Six enlarged horses face screen-right on a shallow upward diagonal; their heading also determines each dust trail. Steam is offset toward the camera so it clears the central riders.
-- `scenes/western/index.html`: self-contained Western railway delivery.
+- `versions/western-before-grand/`: preserved Western delivery before this composition revision.
+- `scenes/western/index.html`, `western-train.zip`: self-contained Western railway delivery.
+- `versions/before-western/`: gallery snapshot and hashes verifying the cricket and autumn pond sources and standalone pages are preserved.
 - `scenes/cricket/index.html`, `scenes/pond/index.html`: independent clean render pages.
-- `src/gallery.html`, `src/scene-shell.html`: minimal gallery and renderer templates.
+- `versions/pixel-cricket/index.html`, `versions/fishing-pond/index.html`, `versions/original-cricket/index.html`: full historical versions, preserved independently of gallery builds.
+- `backups/soft-3d/index.html`: preserved previous smooth-shaded version.
+- `backups/pixel-cricket/index.html`: preserved previous pixel cricket scene.
+- `src/gallery.html`, `src/scene-shell.html`: minimal gallery and renderer templates. Existing `src/main.js` and `src/pond.js` remain saved legacy pond sources.
+- `previews/gallery-qa.json`: offline scene switching, inactive-renderer pause, mobile layout and source preservation checks.
 
 ## Street basketball
 
-The fourth scene follows the user-supplied image of a weathered blue neighborhood basketball court. It contains two hoops with woven nets, six articulated athletes, four bystanders, two bouncing basketballs, a corner shop, vending machines, bicycle, mature tree, chain-link fencing and utility poles. Geometry and texture canvases are authored locally; the reference image is not embedded.
+The fourth scene follows the user-supplied image of a weathered blue neighborhood basketball court. It contains two hoops with woven nets, six articulated athletes, four bystanders, two active basketballs, a corner shop, vending machines, bicycle, mature tree, chain-link fencing and utility poles. Geometry and texture canvases are authored locally; the reference image is not embedded.
 
 The perimeter uses clusters of camera-facing X marks, each built from five square cells on a 3×3 pixel grid, forming a stepped X silhouette. Deep olive, grass-green and yellow-green marks overlap in irregular groups and become sparse toward open white space. Loose square fragments are removed from the outer fringe; inner paving and vegetation remain unchanged. A separate random seed preserves all existing court, shop, tree and figure details. Tree foliage has small leaf clusters and visible gaps. All figure movement and ball motion repeat on a shared 12-second loop; inactive scenes stop rendering.
+
+The six athletes have different jersey colors, short colors, shoes and trim; four bystanders have separate casual outfits. `outfits.js` supplies the wardrobe and joint-attached garment details. `play.js` defines continuous world-space dribbles, gravity-driven shots, net passage, catches and bounce passes. `actions.js` synchronizes articulated hands, knee bends, jumps, receiver runs and defensive shuffles with two six-second practice possessions, offset by three seconds. The shared twelve-second clock remains seamless. The camera, scenery, lighting, navigation and pixel-X fringe are preserved. `previews/basketball-actions-qa.json` records actual figure/ball transform checks for both hoop crossings, shot hand contacts, movement, ball height and phase boundaries.

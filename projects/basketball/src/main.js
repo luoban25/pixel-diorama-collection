@@ -194,7 +194,7 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
       render();
     }
 
-    // Water, breathing, float movement and rings all share the original loop.
+    // Possessions, footsteps and spectators share the same seamless clock.
     const DURATION=12;
     function animate(time){
       const t=((time%DURATION)+DURATION)%DURATION;
@@ -211,7 +211,7 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
     environment.update(DURATION);dynamicRoot.updateMatrixWorld(true);
     let loopMaxError=0,index=0;dynamicRoot.traverse(o=>{for(const value of o.matrixWorld.elements)loopMaxError=Math.max(loopMaxError,Math.abs(value-loopStart[index++]));});
     environment.update(0);
-    window.__CRICKET__.review={loopMaxError,groundEdge:environment.edgeStats};
+    window.__CRICKET__.review={loopMaxError,groundEdge:environment.edgeStats,outfits:environment.actionReview().outfits};
     function render(){if(!contextLost){renderer.info.reset();environment.prepareReflection(renderer,camera);renderer.shadowMap.needsUpdate=true;composer.render();if(window.__CRICKET__){window.__CRICKET__.drawCalls=renderer.info.render.calls;window.__CRICKET__.triangles=renderer.info.render.triangles;window.__CRICKET__.frames++;}}}
     function frame(now){
       raf=0;if(paused||document.hidden||!isVisible||contextLost)return;
@@ -252,6 +252,9 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
     window.addEventListener('resize',resize,{passive:true});
     window.addEventListener('pagehide',()=>{stop();},{once:true});
     window.addEventListener('pageshow',()=>{start();});
+    // Deterministic inspection is also useful when checking hand contacts and
+    // the ball crossing each hoop; it never changes the visible interface.
+    window.__CRICKET__.inspectAt=(t,draw=true)=>{stop();animate(t);if(draw)render();return environment.actionReview();};
     animate(0);resize();updateControls(false);
     window.__CRICKET__.ready=true;
     window.__CRICKET__.drawCalls=renderer.info.render.calls;

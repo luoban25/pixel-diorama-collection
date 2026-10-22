@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "scene": "street basketball",
+  "people": 10,
+  "athletes": 6,
+  "animation": true,
+  "seamlessLoop": true,
+  "edge": {
+    "featherWidth": 1.7,
+    "flecks": 2944,
+    "clusters": 314,
+    "shape": "pixel-grid X",
+    "pixelGrid": "3x3",
+    "pixelsPerMark": 5,
+    "solidCells": 31785,
+    "raisedSlab": false,
+    "looseSquareFragments": 0
+  },
+  "mobile": true,
+  "keyboard": true,
+  "reducedMotion": true,
+  "inactiveScenePauses": true,
+  "existingScenesPreserved": 11,
+  "offline": true,
+  "errors": []
+}

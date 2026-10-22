@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "uniqueAthleteShirts": 6,
+  "distinctOutfits": 10,
+  "possessionDuration": 6,
+  "shotHoopErrors": [
+    2.094764613337708e-15,
+    2.094764613337708e-15
+  ],
+  "maxBoundaryJump": 0.0000129656295728437,
+  "shootingHandBallDistances": [
+    0.1320037878244408,
+    0.13200378782444028,
+    0.1320037878244406
+  ],
+  "plays": [
+    {
+      "shooter": 3,
+      "stages": [
+        "dribble",
+        "gather",
+        "raise",
+        "flight",
+        "net",
+        "catch",
+        "pass",
+        "receive"
+      ],
+      "minHeight": 0.2000000000000002,
+      "maxHeight": 4.04603491109803,
+      "horizontalTravel": 3.3205987388576452
+    },
+    {
+      "shooter": 1,
+      "stages": [
+        "flight",
+        "net",
+        "catch",
+        "pass",
+        "receive",
+        "dribble",
+        "gather",
+        "raise"
+      ],
+      "minHeight": 0.2000000000000002,
+      "maxHeight": 4.04603491109803,
+      "horizontalTravel": 3.3603163240940255
+    }
+  ],
+  "players": [
+    {
+      "index": 0,
+      "horizontalTravel": 3.2578827480435817,
+      "jumpHeight": 0
+    },
+    {
+      "index": 1,
+      "horizontalTravel": 0.13281055946794615,
+      "jumpHeight": 0.4399329858688122
+    },
+    {
+      "index": 2,
+      "horizontalTravel": 1.3493234287745655,
+      "jumpHeight": 0
+    },
+    {
+      "index": 3,
+      "horizontalTravel": 0.13281055946794615,
+      "jumpHeight": 0.4399329858688122
+    },
+    {
+      "index": 4,
+      "horizontalTravel": 2.5748398008419873,
+      "jumpHeight": 0
+    },
+    {
+      "index": 5,
+      "horizontalTravel": 1.3493234287745655,
+      "jumpHeight": 0
+    }
+  ],
+  "seamlessLoopError": 8.881784197001252e-16,
+  "errors": []
+}

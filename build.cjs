@@ -5,7 +5,7 @@ const esbuild=require('esbuild');
 const configs=[
   {id:'cricket',title:'板球场',source:'projects/cricket/src/main.js',environment:'projects/cricket/src/environment.js'},
   {id:'pond',title:'钓鱼池塘',source:'projects/pond/src/main.js',environment:'projects/pond/src/pond.js'},
-  {id:'basketball',title:'街头篮球',source:'projects/basketball/src/main.js',environment:'projects/basketball/src/basketball.js'},
+  {id:'basketball',title:'街头篮球',source:'projects/basketball/src/main.js',environment:'projects/basketball/src/basketball.js',fragments:{BASKETBALL_OUTFITS:'projects/basketball/src/outfits.js',BASKETBALL_PLAY:'projects/basketball/src/play.js',BASKETBALL_ACTIONS:'projects/basketball/src/actions.js'}},
   {id:'western',title:'西部列车',source:'projects/western/src/main.js',environment:'projects/western/src/western.js',fragments:{WESTERN_LANDSCAPE:'projects/western/src/landscape.js',WESTERN_RIDERS:'projects/western/src/riders.js'}}
 ];
 function adaptToGallery(source,id){
