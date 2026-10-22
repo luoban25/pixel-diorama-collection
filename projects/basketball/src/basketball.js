@@ -127,7 +127,7 @@ function buildEnvironment(){
   for(let i=0;i<270;i++){const z=-10+rand()*20,x=7.12+(rand()-.5)*.17,y=.08+Math.pow(rand(),2.0)*2.75;const leaf=b(.085+rand()*.12,.06,.09,[M.grass,M.grassLight,M.grassDark][i%3],x,y,z);leaf.rotation.y=rand()*TAU;}
   for(let i=0;i<140;i++){const x=-8.2+rand()*4.9,y=.1+Math.pow(rand(),1.8)*2.4;const leaf=b(.10,.07,.10,leaves[i%5],x,y,-13.60+(rand()-.5)*.15);leaf.rotation.z=rand()*2;}
   for(let i=0;i<800;i++){const x=(rand()-.5)*19.5,z=rand()*27-15,d=edgeDistance(x,z);if(d<-.65||Math.abs(x)<6.4&&z>-9.3&&z<9.6)continue;const pebble=b(.025+rand()*.065,.018,.035+rand()*.07,[M.cream,M.grassLight,M.wallDark][i%3],x,.03,z);pebble.rotation.y=rand()*TAU;pebble.castShadow=false;if(d<.7)pebble.removeFromParent();}
-  // Two thin, camera-facing diagonal ribbons make a true X silhouette at every point.
+  // Every X uses the same coarse pixel grid: four corner squares and one center square.
   // A separate seed preserves all existing court, tree and figure randomization.
   const crossPositions=[],crossNormals=[],crossColors=[],crossUV=[];
   const right=new THREE.Vector3(1,0,0).applyQuaternion(camera.quaternion),up=new THREE.Vector3(0,1,0).applyQuaternion(camera.quaternion),front=new THREE.Vector3(0,0,1).applyQuaternion(camera.quaternion);
@@ -135,10 +135,10 @@ function buildEnvironment(){
   let crossSeed=74219,crossCount=0,crossClusters=0;
   const crossRand=()=>{crossSeed=(1664525*crossSeed+1013904223)>>>0;return crossSeed/4294967296;};
   function appendCross(x,z,size,color){
-    const center=new THREE.Vector3(x,.037+crossRand()*.018,z),half=size*.5,width=size*.115;
-    for(const slope of [-1,1]){
-      const ax=-half,ay=-half*slope,bx=half,by=half*slope,ox=-slope*width,oy=width;
-      const corners=[[ax+ox,ay+oy],[ax-ox,ay-oy],[bx-ox,by-oy],[bx+ox,by+oy]];
+    const center=new THREE.Vector3(x,.037+crossRand()*.018,z),cell=size*1.23/3;
+    for(const [px,py] of [[-1,-1],[1,-1],[0,0],[-1,1],[1,1]]){
+      const x0=(px-.5)*cell,x1=(px+.5)*cell,y0=(py-.5)*cell,y1=(py+.5)*cell;
+      const corners=[[x0,y0],[x0,y1],[x1,y1],[x1,y0]];
       for(const i of [0,1,2,0,2,3]){const q=corners[i],point=center.clone().addScaledVector(right,q[0]).addScaledVector(up,q[1]);crossPositions.push(point.x,point.y,point.z);crossNormals.push(front.x,front.y,front.z);crossColors.push(color.r,color.g,color.b);crossUV.push(0,0);}
     }
     crossCount++;
@@ -180,5 +180,5 @@ function buildEnvironment(){
     for(const a of bystanders){a.head.rotation.y=Math.sin(p*2+a.index)*.10;a.torso.rotation.z=Math.sin(p+a.index)*.014;for(const arm of a.arms){arm.upper.rotation.x=a.mode==='seated'?-.65:-.12;arm.upper.rotation.z=arm.side*.13;arm.lower.rotation.x=-.60+Math.sin(p*2+a.index+arm.side)*.08;}if(a.mode==='seated')for(const leg of a.legs)leg.lower.rotation.x=Math.PI/2+Math.sin(p*3+a.index+leg.side)*.08;}
   }
   update(0);
-  return{dynamicRoot,anglers:people,people,athletes,balls,edgeStats:{featherWidth:1.7,flecks:crossCount,clusters:crossClusters,shape:'camera-facing X',solidCells,raisedSlab:false,looseSquareFragments:0},update,prepareReflection(){}};
+  return{dynamicRoot,anglers:people,people,athletes,balls,edgeStats:{featherWidth:1.7,flecks:crossCount,clusters:crossClusters,shape:'pixel-grid X',pixelGrid:'3x3',pixelsPerMark:5,solidCells,raisedSlab:false,looseSquareFragments:0},update,prepareReflection(){}};
 }
