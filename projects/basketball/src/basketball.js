@@ -163,14 +163,23 @@ function buildEnvironment(){
     const top=c(.185,.15,.43,shirt,0,.24,0,7,torso);top.scale.z*=.72;ellipsoid(torso,0,.50,0,.12,.065,.105,skin);c(.055,.063,.12,skin,0,.56,0,7,torso);
     const head=group(0,.71,.005,torso);ellipsoid(head,0,0,0,.125,.154,.12,skin);ellipsoid(head,0,.105,-.012,.132,.076,.126,hair);b(.16,.075,.06,hair,0,.102,.097,head);b(.045,.044,.043,skin,0,-.016,.129,head);for(const side of [-1,1]){b(.018,.018,.015,M.dark,side*.049,.018,.115,head);ellipsoid(head,side*.12,-.015,0,.023,.036,.022,skin);}
     const arms=[];for(const side of [-1,1]){const upper=group(side*.204,.416,0,torso);ellipsoid(upper,0,-.055,0,.061,.092,.065,skin);r([0,-.04,0],[0,-.265,0],.046,skin,upper,7);const lower=group(0,-.28,0,upper);r([0,0,0],[0,-.26,0],.038,skin,lower,7);ellipsoid(lower,0,-.287,0,.042,.058,.043,skin);arms.push({upper,lower,side});}
-    const legs=[];for(const side of [-1,1]){const upper=group(side*.105,.92,0,root);b(.19,.22,.23,shorts,0,-.09,0,upper);r([0,-.17,0],[0,-.38,0],.061,skin,upper,7);const lower=group(0,-.39,0,upper);r([0,0,0],[0,-.28,0],.046,skin,lower,7);c(.047,.05,.15,outfit.socks,0,-.29,0,7,lower);b(.133,.089,.25,outfit.shoes,0,-.40,.058,lower);b(.14,.025,.255,sole,0,-.445,.058,lower);legs.push({upper,lower,side});}
+    const legs=[];for(const side of [-1,1]){const upper=group(side*.105,.92,0,root);b(.19,.22,.23,shorts,0,-.09,0,upper);r([0,-.17,0],[0,-.38,0],.061,skin,upper,7);const lower=group(0,-.39,0,upper);const shin=r([0,0,0],[0,-.28,0],.046,skin,lower,7);c(.047,.05,.15,outfit.socks,0,-.29,0,7,lower);b(.133,.089,.25,outfit.shoes,0,-.40,.058,lower);b(.14,.025,.255,sole,0,-.445,.058,lower);legs.push({upper,lower,side,shin});}
     if(mode==='athlete'){const number=tex(64,64,(ctx,w,h)=>{ctx.clearRect(0,0,w,h);ctx.fillStyle=outfit.numberInk;ctx.font='bold 48px Arial';ctx.textAlign='center';ctx.fillText(String([7,11,3,8,21,5][index%6]),32,51);});const numberMat=new THREE.MeshStandardMaterial({map:number,transparent:true,alphaTest:.25,roughness:1,side:THREE.DoubleSide});for(const sign of [-1,1]){const n=new THREE.Mesh(new THREE.PlaneGeometry(.15,.17),numberMat);n.position.set(0,.28,sign*.146);if(sign<0)n.rotation.y=Math.PI;torso.add(n);} }
     const record={root,torso,head,arms,legs,x,z,index,mode,yaw,shirt,shorts};decorateBasketballPerson(record,outfit);people.push(record);if(mode==='athlete')athletes.push(record);return record;
   }
   const playerData=[[2.25,-5.8,jerseyWhite,navy,.8],[-1.8,-4.7,jerseyWhite,shortGrey,.8],[1.8,1.5,navy,navy,-1.2],[1.4,4.9,navy,navy,.3],[-2.05,6.25,navy,shortGrey,1.2],[-2.4,-1.3,jerseyWhite,navy,-1.8]];
   playerData.forEach(([x,z,shirt,shorts,yaw],i)=>person(x,z,i,shirt,shorts,'athlete',yaw));
   const bystanders=[person(-2.0,-8.7,6,jerseyWhite,navy,'standing',Math.PI),person(-.70,-8.8,7,M.red,navy,'standing',Math.PI-.35),person(7.60,-.75,8,jerseyWhite,navy,'seated',-Math.PI/2),person(7.60,.80,9,navy,shortGrey,'seated',-Math.PI/2)];
-  for(const p of bystanders)if(p.mode==='seated'){p.root.position.y=-.33;for(const leg of p.legs){leg.upper.rotation.x=-Math.PI/2;leg.lower.rotation.x=Math.PI/2;}}
+  for(const p of bystanders)if(p.mode==='seated'){
+    // Seat the hips above the planks and keep the toes behind the fence.
+    // A slightly longer shin reaches the ground without scaling shoes or socks.
+    p.root.position.x=7.72;p.root.position.y=-.2545;
+    for(const leg of p.legs){
+      leg.upper.rotation.x=-Math.PI/2;leg.lower.rotation.x=Math.PI/2;
+      leg.shin.scale.y+=.16;leg.shin.position.y-=.08;
+      for(const part of leg.lower.children)if(part!==leg.shin)part.position.y-=.16;
+    }
+  }
   function ball(parent){const root=group(0,0,0,parent);const leather=mat(0xd47a32,.9);s(.155,leather,0,0,0,root,2);for(let j=0;j<3;j++){const seam=new THREE.Mesh(new THREE.TorusGeometry(.156,.005,4,26),M.dark);if(j===1)seam.rotation.x=Math.PI/2;if(j===2)seam.rotation.y=Math.PI/2;root.add(seam);}return root;}
   for(const index of [3,1]){const obj=ball(dynamicRoot);obj.userData.player=index;balls.push(obj);}
   const spare=ball(props);spare.position.set(7.76,.17,2.12);

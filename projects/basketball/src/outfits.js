@@ -32,7 +32,7 @@ function decorateBasketballPerson(person,outfit){
     return mesh;
   };
   const collar=c(.072,.079,.025,accent,0,.466,0,8,torso);
-  collar.scale.z=.86;collar.castShadow=false;
+  collar.scale.z*=.86;collar.castShadow=false;
   // A lower waist band and two narrow side panels fit around the jersey number.
   if(person.mode==='athlete'){
     for(const side of [-1,1]){

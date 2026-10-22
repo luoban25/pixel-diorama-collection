@@ -4,14 +4,14 @@
   "distinctOutfits": 10,
   "possessionDuration": 6,
   "shotHoopErrors": [
-    2.094764613337708e-15,
-    2.094764613337708e-15
+    3.2709212810858005e-15,
+    3.2709212810858005e-15
   ],
-  "maxBoundaryJump": 0.0000129656295728437,
+  "maxBoundaryJump": 0.000014347434045218988,
   "shootingHandBallDistances": [
-    0.1320037878244408,
-    0.13200378782444028,
-    0.1320037878244406
+    0.1449999999999998,
+    0.14500000000000005,
+    0.1449999999999999
   ],
   "plays": [
     {
@@ -27,8 +27,8 @@
         "receive"
       ],
       "minHeight": 0.2000000000000002,
-      "maxHeight": 4.04603491109803,
-      "horizontalTravel": 3.3205987388576452
+      "maxHeight": 4.018762183825302,
+      "horizontalTravel": 3.320562322743152
     },
     {
       "shooter": 1,
@@ -43,14 +43,14 @@
         "raise"
       ],
       "minHeight": 0.2000000000000002,
-      "maxHeight": 4.04603491109803,
-      "horizontalTravel": 3.3603163240940255
+      "maxHeight": 4.018762183825302,
+      "horizontalTravel": 3.3528728599570212
     }
   ],
   "players": [
     {
       "index": 0,
-      "horizontalTravel": 3.2578827480435817,
+      "horizontalTravel": 3.036000658761457,
       "jumpHeight": 0
     },
     {
@@ -70,7 +70,7 @@
     },
     {
       "index": 4,
-      "horizontalTravel": 2.5748398008419873,
+      "horizontalTravel": 2.3480417372781095,
       "jumpHeight": 0
     },
     {
@@ -79,6 +79,6 @@
       "jumpHeight": 0
     }
   ],
-  "seamlessLoopError": 8.881784197001252e-16,
+  "seamlessLoopError": 1.1102230246251565e-16,
   "errors": []
 }

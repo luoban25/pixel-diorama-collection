@@ -1,0 +1,324 @@
+{
+  "passed": true,
+  "frames": 721,
+  "duration": 12,
+  "fps": 60,
+  "sampledVertices": 9044224,
+  "normalJointSeamExclusion": 0.095,
+  "allowedGarmentSeamDepth": 0.012,
+  "collars": [
+    {
+      "person": 0,
+      "localDepth": 0.13588
+    },
+    {
+      "person": 1,
+      "localDepth": 0.13588
+    },
+    {
+      "person": 2,
+      "localDepth": 0.13588
+    },
+    {
+      "person": 3,
+      "localDepth": 0.13588
+    },
+    {
+      "person": 4,
+      "localDepth": 0.13588
+    },
+    {
+      "person": 5,
+      "localDepth": 0.13588
+    },
+    {
+      "person": 6,
+      "localDepth": 0.13588
+    },
+    {
+      "person": 7,
+      "localDepth": 0.13588
+    },
+    {
+      "person": 8,
+      "localDepth": 0.13588
+    },
+    {
+      "person": 9,
+      "localDepth": 0.13588
+    }
+  ],
+  "deepCenterPenetrations": [],
+  "meshPenetrations": [],
+  "ballPenetrations": [],
+  "allowedClothSeams": [
+    {
+      "collider": "torso",
+      "person": 4,
+      "arm": "left",
+      "time": 5.516667,
+      "part": "upper",
+      "signedClearance": -0.008898,
+      "point": [
+        -1.950479,
+        1.274077,
+        6.422281
+      ],
+      "isGarment": true,
+      "nodeLocal": [
+        0.06922,
+        -0.123,
+        -0.015799
+      ],
+      "shoulderDistance": 0.142021
+    },
+    {
+      "collider": "torso",
+      "person": 4,
+      "arm": "right",
+      "time": 5.2,
+      "part": "upper",
+      "signedClearance": -0.008094,
+      "point": [
+        -1.738936,
+        1.274484,
+        6.376894
+      ],
+      "isGarment": true,
+      "nodeLocal": [
+        -0.06922,
+        -0.123,
+        -0.015799
+      ],
+      "shoulderDistance": 0.142021
+    },
+    {
+      "collider": "torso",
+      "person": 6,
+      "arm": "left",
+      "time": 8.716667,
+      "part": "upper",
+      "signedClearance": -0.006471,
+      "point": [
+        -1.852316,
+        1.311016,
+        -8.699989
+      ],
+      "isGarment": true,
+      "nodeLocal": [
+        0.06922,
+        -0.123,
+        -0.015799
+      ],
+      "shoulderDistance": 0.142021
+    },
+    {
+      "collider": "torso",
+      "person": 6,
+      "arm": "right",
+      "time": 0.016667,
+      "part": "upper",
+      "signedClearance": -0.006471,
+      "point": [
+        -2.152386,
+        1.308539,
+        -8.699989
+      ],
+      "isGarment": true,
+      "nodeLocal": [
+        -0.06922,
+        -0.123,
+        -0.015799
+      ],
+      "shoulderDistance": 0.142021
+    },
+    {
+      "collider": "torso",
+      "person": 7,
+      "arm": "left",
+      "time": 0.183333,
+      "part": "upper",
+      "signedClearance": -0.006471,
+      "point": [
+        -0.555162,
+        1.307562,
+        -8.747118
+      ],
+      "isGarment": true,
+      "nodeLocal": [
+        0.06922,
+        -0.123,
+        -0.015799
+      ],
+      "shoulderDistance": 0.142021
+    },
+    {
+      "collider": "torso",
+      "person": 7,
+      "arm": "right",
+      "time": 0.2,
+      "part": "upper",
+      "signedClearance": -0.006471,
+      "point": [
+        -0.839396,
+        1.310651,
+        -8.850872
+      ],
+      "isGarment": true,
+      "nodeLocal": [
+        -0.06922,
+        -0.123,
+        -0.015799
+      ],
+      "shoulderDistance": 0.142021
+    }
+  ],
+  "closestHead": [
+    {
+      "person": 1,
+      "arm": "right",
+      "time": 11.016667,
+      "part": "upper",
+      "signedClearance": 0.134185,
+      "point": [
+        -1.82582,
+        1.877669,
+        -4.900203
+      ],
+      "isGarment": false,
+      "nodeLocal": [
+        -0.0305,
+        -0.08343,
+        0.052586
+      ],
+      "shoulderDistance": 0.103228
+    },
+    {
+      "person": 3,
+      "arm": "right",
+      "time": 2,
+      "part": "upper",
+      "signedClearance": 0.13691,
+      "point": [
+        1.639934,
+        1.86882,
+        4.954122
+      ],
+      "isGarment": false,
+      "nodeLocal": [
+        -0.0305,
+        -0.08343,
+        0.052586
+      ],
+      "shoulderDistance": 0.103228
+    },
+    {
+      "person": 4,
+      "arm": "left",
+      "time": 3.283333,
+      "part": "upper",
+      "signedClearance": 0.138317,
+      "point": [
+        -0.313166,
+        1.451207,
+        7.763925
+      ],
+      "isGarment": true,
+      "nodeLocal": [
+        0,
+        0.0125,
+        0.073
+      ],
+      "shoulderDistance": 0.074062
+    },
+    {
+      "person": 4,
+      "arm": "right",
+      "time": 3.283333,
+      "part": "upper",
+      "signedClearance": 0.138324,
+      "point": [
+        -0.00202,
+        1.447835,
+        7.656579
+      ],
+      "isGarment": true,
+      "nodeLocal": [
+        0,
+        0.0125,
+        0.073
+      ],
+      "shoulderDistance": 0.074062
+    }
+  ],
+  "closestBall": [
+    {
+      "ball": 1,
+      "person": 1,
+      "collider": "torso",
+      "time": 4.75,
+      "signedClearance": 0.075774,
+      "point": [
+        -1.570117,
+        1.521522,
+        -4.966538
+      ]
+    },
+    {
+      "ball": 0,
+      "person": 3,
+      "collider": "torso",
+      "time": 1.75,
+      "signedClearance": 0.07715,
+      "point": [
+        1.431466,
+        1.539777,
+        5.091346
+      ]
+    },
+    {
+      "ball": 1,
+      "person": 1,
+      "collider": "head",
+      "time": 4.85,
+      "signedClearance": 0.098054,
+      "point": [
+        -1.565948,
+        1.92251,
+        -4.987723
+      ]
+    },
+    {
+      "ball": 0,
+      "person": 4,
+      "collider": "torso",
+      "time": 3.55,
+      "signedClearance": 0.099133,
+      "point": [
+        0.070759,
+        1.375331,
+        7.592079
+      ]
+    }
+  ],
+  "seating": [
+    {
+      "index": 8,
+      "shoeBottomMin": 0.045287,
+      "shoeBottomMax": 0.047994,
+      "shoeFenceClearance": 0.015259,
+      "pantsBottom": 0.5505,
+      "pantsSeatClearance": 0.008,
+      "shoeGroundClearanceMin": 0.003287
+    },
+    {
+      "index": 9,
+      "shoeBottomMin": 0.045287,
+      "shoeBottomMax": 0.047999,
+      "shoeFenceClearance": 0.015259,
+      "pantsBottom": 0.5505,
+      "pantsSeatClearance": 0.008,
+      "shoeGroundClearanceMin": 0.003287
+    }
+  ]
+}

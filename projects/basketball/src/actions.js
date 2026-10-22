@@ -24,7 +24,7 @@ function sampleAthletePose(index,q){
     stride=.10*(1-ramp(q,1.25,1.6))+.10*ramp(q,2.8,3.3);
   }else if(play){
     const approach=ramp(q,1.45,2.95)*(1-ramp(q,4.05,5.65));
-    x=mix(a.x,-.18,approach);z=mix(a.z,play.rim.z-play.sign*.20,approach);
+    x=mix(a.x,-.18,approach);z=mix(a.z,play.rim.z-play.sign*.55,approach);
     const shooter=athletes[play.shooter];
     const toShooter=Math.atan2(shooter.x-x,shooter.z-z);
     const toRim=Math.atan2(play.rim.x-x,play.rim.z-z);
@@ -74,7 +74,7 @@ function reachHand(person,arm,target){
   direction.normalize();
   const projection=(l1*l1-l2*l2+distance*distance)/(2*distance);
   const height=Math.sqrt(Math.max(0,l1*l1-projection*projection));
-  const bend=new THREE.Vector3(arm.side*.85,-.25,-.65);
+  const bend=new THREE.Vector3(arm.side*.95,-.18,.80);
   bend.addScaledVector(direction,-bend.dot(direction)).normalize();
   const elbow=shoulder.clone().addScaledVector(direction,projection).addScaledVector(bend,height);
   const end=shoulder.clone().addScaledVector(direction,distance);
@@ -120,32 +120,31 @@ function update(t){
     if(sample.stage==='dribble'||sample.stage==='receive'){
       const target=sample.position.clone();target.y=Math.max(target.y,.78+shooter.pose.y);
       holdBall(shooter,target,[null,[0,.12,0]]);
-      if(q>=4.85&&q<5.03)holdBall(shooter,sample.position,[[-.13,.02,0],null],1-ramp(q,4.85,5.03));
     }else if(sample.stage==='gather'||sample.stage==='raise'){
       const grip=ramp(q,1.2,1.38);
-      holdBall(shooter,sample.position,[null,[.055*grip,mix(.12,-.12,grip),0]]);
-      holdBall(shooter,sample.position,[[-.13,-.015,0],null],grip);
+      holdBall(shooter,sample.position,[null,[.055*grip,mix(.12,-.12,grip),-.06*grip]]);
+      holdBall(shooter,sample.position,[[-.13,-.08,-.08],null],ramp(q,1.4,1.65));
     }else if(q>=2&&q<3.25){
-      const follow=1-ramp(q,2.45,3.15),point=rootPoint(play.shooter,q,0,mix(1.26,1.92,follow),mix(.35,.10,follow));
-      holdBall(shooter,point,[[-.13,-.015,0],[.055,-.12,0]],1-ramp(q,2.6,3.25));
+      const follow=1-ramp(q,2.45,3.15),point=rootPoint(play.shooter,q,0,mix(1.26,1.86,follow),mix(.40,.42,follow));
+      holdBall(shooter,point,[[-.13,-.08,-.08],[.055,-.12,-.06]],1-ramp(q,2.6,3.25));
     }else if(sample.stage==='pass'&&q>4.45){
       const anticipation=ramp(q,4.45,4.85),point=rootPoint(play.shooter,q,.34,.86,.30);
-      holdBall(shooter,point,[[-.13,.02,0],[0,.12,0]],anticipation);
+      holdBall(shooter,point,[null,[0,.12,0]],anticipation);
     }
     if(q>=2.60&&q<3.28){
-      const ready=rootPoint(play.receiver,q,0,1.61,.25).lerp(new THREE.Vector3(play.rim.x,1.75,play.rim.z),ramp(q,3.05,3.28));
-      holdBall(receiver,ready,[[-.13,-.025,0],[.13,-.025,0]],ramp(q,2.60,2.90));
+      const ready=rootPoint(play.receiver,q,0,mix(1.40,1.54,ramp(q,3.05,3.28)),.44);
+      holdBall(receiver,ready,[[-.13,-.06,-.035],[.13,-.06,-.035]],ramp(q,2.60,2.90));
     }else if(sample.stage==='catch'){
-      holdBall(receiver,sample.position,[[-.13,-.025,0],[.13,-.025,0]]);
+      holdBall(receiver,sample.position,[[-.13,-.06,-.035],[.13,-.06,-.035]]);
     }else if(sample.stage==='pass'&&sample.progress<.40){
-      const push=smooth(sample.progress/.30),point=rootPoint(play.receiver,q,0,1.22,.30+push*.24);
-      holdBall(receiver,point,[[-.13,-.025,0],[.13,-.025,0]],1-smooth(sample.progress/.40));
+      const push=smooth(sample.progress/.30),point=rootPoint(play.receiver,q,0,1.22,.40+push*.14);
+      holdBall(receiver,point,[[-.13,-.06,-.035],[.13,-.06,-.035]],1-smooth(sample.progress/.40));
     }
   }
   for(const a of bystanders){
     a.head.rotation.y=Math.sin(p*2+a.index)*.10;a.torso.rotation.z=Math.sin(p+a.index)*.014;
     for(const arm of a.arms){arm.upper.rotation.set(a.mode==='seated'?-.65:-.12,0,arm.side*.13);arm.lower.rotation.set(-.60+Math.sin(p*2+a.index+arm.side)*.08,0,0);}
-    if(a.mode==='seated')for(const leg of a.legs)leg.lower.rotation.x=Math.PI/2+Math.sin(p*3+a.index+leg.side)*.08;
+    if(a.mode==='seated')for(const leg of a.legs)leg.lower.rotation.x=Math.PI/2+Math.sin(p*3+a.index+leg.side)*.015;
   }
 }
 function actionReview(){

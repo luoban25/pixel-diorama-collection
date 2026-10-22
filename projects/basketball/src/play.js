@@ -7,7 +7,7 @@ function sampleBasketballPlay(q,anchors){
   const ease=value=>{const t=clamp(value);return t*t*(3-2*t);};
   const mixLocal=(from,to,t)=>from.map((value,index)=>value+(to[index]-value)*t);
   const fromShooter=local=>anchors.shooter(q,...local);
-  const hand=[.34,.86,.30],chest=[0,1.34,.32],release=[0,1.92,.10];
+  const hand=[.34,.86,.30],chest=[0,1.34,.40],release=[0,1.86,.42];
   const result=(position,stage,progress)=>({position,stage,progress:clamp(progress)});
   // The bounce contacts the world-space court even when foot planting or a jump
   // shifts the player's root. Its upper endpoint stays attached to the hand.
@@ -31,28 +31,35 @@ function sampleBasketballPlay(q,anchors){
     return result(position,'flight',u);
   }
 
-  const catchPoint=new THREE.Vector3(rim.x,1.75,rim.z);
+  const catchHigh=[0,1.54,.44],catchLow=[0,1.22,.40];
+  const catchPoint=anchors.receiver(3.28,...catchHigh);
   if(q<3.28){
-    const u=(q-3.10)/.18,position=rim.clone().lerp(catchPoint,u);
+    const u=(q-3.10)/.18,position=rim.clone();
     // The net slightly redirects the falling ball. A Hermite vertical segment
     // retains its flight arrival velocity and comes down to the rebounder's hand.
     const arrivalVy=launchVy-g*flightTime;
     const h00=2*u*u*u-3*u*u+1,h10=u*u*u-2*u*u+u;
     const h01=-2*u*u*u+3*u*u,h11=u*u*u-u*u;
     position.y=h00*rim.y+h10*.18*arrivalVy+h01*catchPoint.y+h11*.18*(-5.6);
+    // Stay centered until the whole ball clears the bottom of the net. Only
+    // then guide its short remaining fall toward the waiting hands.
+    const shift=ease((2.22-position.y)/(2.22-catchPoint.y));
+    position.x=rim.x+(catchPoint.x-rim.x)*shift;
+    position.z=rim.z+(catchPoint.z-rim.z)*shift;
     return result(position,'net',u);
   }
   if(q<3.75){
     const u=(q-3.28)/.47;
-    const movingHand=anchors.receiver(q,0,1.22,.30);
-    return result(catchPoint.clone().lerp(movingHand,ease(u)),'catch',u);
+    // Lower the ball in front of the turning player, rather than taking a
+    // world-space shortcut through their chest as their heading changes.
+    return result(anchors.receiver(q,...mixLocal(catchHigh,catchLow,ease(u))),'catch',u);
   }
 
   // A chest-height bounce pass travels to one floor contact and back up. Both
   // flights use ordinary gravity; horizontal travel has one constant velocity.
   if(q<4.85){
     const elapsed=q-3.75,passTime=1.10,halfTime=passTime/2,u=elapsed/passTime;
-    const start=anchors.receiver(3.75,0,1.22,.30);
+    const start=anchors.receiver(3.75,...catchLow);
     const end=anchors.shooter(4.85,...hand);
     const position=start.clone().lerp(end,u),floorY=.20;
     if(elapsed<halfTime){
