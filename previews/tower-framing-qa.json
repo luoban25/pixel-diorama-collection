@@ -1,0 +1,159 @@
+{
+  "passed": true,
+  "singleFloor": true,
+  "fullOverviewRestored": true,
+  "screenBoundsChecks": 25,
+  "checks": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "floor": 0,
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "floor": 1,
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "floor": 2,
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "floor": 3,
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "floor": 4,
+      "pass": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "floor": 0,
+      "pass": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "floor": 1,
+      "pass": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "floor": 2,
+      "pass": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "floor": 3,
+      "pass": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "floor": 4,
+      "pass": true
+    },
+    {
+      "width": 303,
+      "height": 389,
+      "floor": 0,
+      "pass": true
+    },
+    {
+      "width": 303,
+      "height": 389,
+      "floor": 1,
+      "pass": true
+    },
+    {
+      "width": 303,
+      "height": 389,
+      "floor": 2,
+      "pass": true
+    },
+    {
+      "width": 303,
+      "height": 389,
+      "floor": 3,
+      "pass": true
+    },
+    {
+      "width": 303,
+      "height": 389,
+      "floor": 4,
+      "pass": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "floor": 0,
+      "pass": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "floor": 1,
+      "pass": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "floor": 2,
+      "pass": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "floor": 3,
+      "pass": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "floor": 4,
+      "pass": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "floor": 0,
+      "pass": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "floor": 1,
+      "pass": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "floor": 2,
+      "pass": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "floor": 3,
+      "pass": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "floor": 4,
+      "pass": true
+    }
+  ],
+  "errors": []
+}
