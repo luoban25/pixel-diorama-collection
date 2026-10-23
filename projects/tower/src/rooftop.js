@@ -1,5 +1,5 @@
 function rooftopTerrace(P,A,architecture,interior,walls,exterior){
-  const {M,g,b,c,r,s,tor,text}=P,S=A.surface,{door,moss,pipeCurve}=architecture;
+  const {M,g,b,c,r,s,tor,text}=P,S=A.surface,{door,pipeCurve}=architecture;
   // Local seed: roof edits cannot move or recolor the three original scenes.
   let seed=72941;const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
   const plasterMap=canvasTexture(256,256,ctx=>{
@@ -9,7 +9,7 @@ function rooftopTerrace(P,A,architecture,interior,walls,exterior){
   });
   const cement=new THREE.MeshStandardMaterial({map:plasterMap,color:0xe5dfcf,roughness:.98});cement.userData={worldStone:true,tileSize:2.8};
   const cap=mat(0xc0b7a0),metal=mat(0x68736d,.73,.38),dark=mat(0x404c49,.8,.4),rust=mat(0x9c704b),wood=mat(0xc99552),woodDark=mat(0x705239),blue=mat(0x428898),orange=mat(0xc9782c),white=mat(0xe4ddc9);
-  const stats={type:'lived-in rooftop terrace',clothes:0,flowerPots:0,trailingVines:0,chairs:3,table:true,waterTank:true,ladder:true,airConditioner:true,cat:true,solarPanels:0,entry:{x:6.18,z:A.doorZ,width:1.58},floorY:S,room:{min:[2.10,S,-3.60],max:[6.28,3.55,.35]},clothAngles:[]};
+  const stats={type:'lived-in rooftop terrace',clothes:0,flowerPots:0,trailingVines:0,wallMossPatches:0,fenceClimbers:0,vegetationClearances:[],chairs:3,table:true,waterTank:true,ladder:true,airConditioner:true,cat:true,solarPanels:0,entry:{x:6.18,z:A.doorZ,width:1.58},floorY:S,room:{min:[2.10,S,-3.60],max:[6.28,3.55,.35]},clothAngles:[]};
   const fixed=g(interior,0,S,0),garden=g(exterior,0,S,0),equipment=g(walls),clothes=[],moving=g(interior);moving.userData.dynamic=true;
   const leafMaterials=[mat(0x47673b),mat(0x718845),mat(0x94a148),mat(0xb0af4c)],flowerMaterials=[mat(0xd59c38),mat(0xc76338),mat(0xe0c578),mat(0xb34d35)];
   function foliage(p,x,y,z,scale=1,flowers=false){
@@ -23,7 +23,38 @@ function rooftopTerrace(P,A,architecture,interior,walls,exterior){
     c(q,0,height/2,0,rad,rad*.74,height,material,12);tor(q,0,height-.014,0,rad,.023*scale,material,Math.PI/2);c(q,0,height-.012,0,rad*.87,rad*.87,.018,M.soil,12);foliage(q,0,height,0,scale,flowers);stats.flowerPots++;
   }
   function bed(x,z,w,d){b(garden,x,.20,z,w,.40,d,cement);b(garden,x,.405,z,w-.10,.026,d-.10,M.soil);for(let j=0;j<Math.ceil(w*3);j++)foliage(garden,x+(random()-.5)*(w-.2),.42,z+(random()-.5)*(d-.2),.75,j%3===0);}
-  function vine(p,x,z,length,side=false){const sign=side?-1:1,points=[];for(let j=0;j<12;j++){const t=j/11,xx=x+(side?Math.sin(t*5)*.05:Math.sin(t*7)*.11),zz=z+(side?Math.sin(t*7)*.11:Math.sin(t*5)*.05);points.push([xx,.26-length*t,zz]);if(j){r(p,points[j-1],points[j],.011,leafMaterials[0]);}for(const direction of [-1,1]){const lx=xx+(side?.025:direction*.08),lz=zz+(side?direction*.08:.025);const leaf=b(p,lx,.26-length*t,lz,.11,.055,.09,leafMaterials[(j+1)%4]);leaf.rotation.set(.1,j*.8,sign*.4);if(j%3===0){b(p,lx+direction*.05,.30-length*t,lz,.06,.035,.06,leafMaterials[2]);}}}stats.trailingVines++;}
+  // Independent vegetation seed preserves the furniture, pots, laundry and cat.
+  let greenSeed=51739;const greenRandom=()=>{greenSeed=(Math.imul(greenSeed,1664525)+1013904223)>>>0;return greenSeed/4294967296;};
+  const greens=['#345b2d','#466c35','#597c3a','#6a8c3e','#88a24a','#a0ae59'];
+  function greeneryMaterial(ivy,variant){const texture=canvasTexture(256,ivy?512:192,(ctx,w,h)=>{
+    ctx.clearRect(0,0,w,h);
+    if(ivy){
+      function leaf(x,y,size){ctx.fillStyle=greens[Math.floor(greenRandom()*greens.length)];const q=Math.max(2,Math.round(size/3));for(const [dx,dy]of[[-1,-1],[1,-1],[0,0],[-1,1],[1,1]])ctx.fillRect(Math.round(x+dx*q),Math.round(y+dy*q),q,q);}
+      for(let stem=0;stem<5;stem++){const bx=90+greenRandom()*65,top=24+greenRandom()*180,bend=(greenRandom()-.5)*95;let previous=[bx,h-7];
+        for(let j=1;j<=25;j++){const t=j/25,x=bx+Math.sin(t*4+variant)*bend*t,y=h-7-(h-7-top)*t;ctx.strokeStyle='#466435';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(...previous);ctx.lineTo(x,y);ctx.stroke();previous=[x,y];
+          if(j>2){const sign=j%2?1:-1,reach=12+greenRandom()*35,tx=Math.max(12,Math.min(w-16,x+sign*reach)),ty=y-14-greenRandom()*16;ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(tx,ty);ctx.stroke();for(let k=0;k<5;k++){const q=k/4;leaf(x+(tx-x)*q+(greenRandom()-.5)*12,y+(ty-y)*q+(greenRandom()-.5)*13,9+greenRandom()*7);}}
+        }
+      }
+    }else{
+      const centers=Array.from({length:7},()=>[w*(.18+greenRandom()*.64),h*(.18+greenRandom()*.64),w*(.16+greenRandom()*.17),h*(.17+greenRandom()*.22)]);
+      const hash=(x,y)=>{const n=Math.sin(x*127.1+y*311.7+variant*78.3)*43758.5453;return n-Math.floor(n);},noise=(x,y)=>{const ix=Math.floor(x),iy=Math.floor(y),fx=x-ix,fy=y-iy,u=fx*fx*(3-2*fx),v=fy*fy*(3-2*fy);return THREE.MathUtils.lerp(THREE.MathUtils.lerp(hash(ix,iy),hash(ix+1,iy),u),THREE.MathUtils.lerp(hash(ix,iy+1),hash(ix+1,iy+1),u),v);};
+      for(let y=0;y<h;y+=2)for(let x=0;x<w;x+=2){let density=-1;for(const [cx,cy,rx,ry]of centers){const dx=(x-cx)/rx,dy=(y-cy)/ry;density=Math.max(density,1-dx*dx-dy*dy);}const grain=noise(x/9,y/8),field=density+(noise(x/29,y/23)-.5)*.75+(grain-.5)*.32,edge=Math.min(1,x/18,(w-x)/18,y/14,(h-y)/14),alpha=THREE.MathUtils.clamp((field-.24)*5,0,1)*Math.max(0,edge);if(alpha>.15){ctx.globalAlpha=alpha*.94;ctx.fillStyle=greens[Math.min(5,Math.floor(grain*5.9))];ctx.fillRect(x,y,2,2);}}ctx.globalAlpha=1;
+    }
+  });return new THREE.MeshStandardMaterial({map:texture,alphaTest:.18,roughness:1,side:THREE.FrontSide,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});}
+  const mossSurfaces=Array.from({length:4},(_,i)=>greeneryMaterial(false,i)),ivySurfaces=Array.from({length:4},(_,i)=>greeneryMaterial(true,i));
+  function surfacePatch(parent,material,axis,face,sign,u,y,width,height,bounds,kind){
+    // Every vertex stays beyond its host face; no leaves or stems cross the wall.
+    width=Math.min(width,(u-bounds[0])*2,(bounds[1]-u)*2);height=Math.min(height,(y-bounds[2])*2,(bounds[3]-y)*2);if(width<=0||height<=0)return;
+    const gap=kind==='moss'?.008:.035,patch=new THREE.Mesh(new THREE.PlaneGeometry(width,height),material);
+    patch.position.set(axis==='x'?face+sign*gap:u,y,axis==='z'?face+sign*gap:u);patch.rotation.y=axis==='x'?sign*Math.PI/2:sign>0?0:Math.PI;patch.receiveShadow=true;patch.castShadow=false;parent.add(patch);patch.updateMatrix();
+    let minGap=Infinity,within=true;const positions=patch.geometry.attributes.position;
+    for(let j=0;j<positions.count;j++){const point=new THREE.Vector3().fromBufferAttribute(positions,j).applyMatrix4(patch.matrix),along=axis==='z'?point.x:point.z;minGap=Math.min(minGap,((axis==='z'?point.z:point.x)-face)*sign);within&&=along>=bounds[0]-1e-6&&along<=bounds[1]+1e-6&&point.y>=bounds[2]-1e-6&&point.y<=bounds[3]+1e-6;}
+    stats.vegetationClearances.push({kind,minGap,within});if(kind==='moss')stats.wallMossPatches++;else stats.fenceClimbers++;
+  }
+  function wallGrowth(x,z,length,side=false){const u=side?z:x,axis=side?'x':'z',sign=side?-1:1,face=side?-6.3875:4.9475,limits=side?[-4.9,4.9,-.305,.275]:[-6.325,6.325,-.305,.275],variant=stats.wallMossPatches%4;
+    surfacePatch(exterior,mossSurfaces[variant],axis,face,sign,u,-.01,.90+Math.min(length,1.7)*.4,.53,limits,'moss');
+    surfacePatch(exterior,mossSurfaces[(variant+1)%4],axis,side?-6.37:5.03,sign,u,S+.14,1.0,.25,side?[-4.9,4.9,S,S+.28]:[-6.325,6.325,S,S+.28],'moss');
+  }
   // Weathered, individually laid pavers with sparse cool blue repair tiles.
   const paving=[mat(0xc8bea1),mat(0xd8ceb3),mat(0xb6b6a5),mat(0xb4bdba),mat(0x8da5ac),mat(0xd0c8b4)];
   b(fixed,0,-.012,0,A.W,.045,A.D,cement);
@@ -89,9 +120,14 @@ function rooftopTerrace(P,A,architecture,interior,walls,exterior){
   }
   bed(-4.55,-4.15,2.0,.66);bed(-1.50,-4.15,1.30,.66);bed(-5.45,1.85,.60,1.70);bed(2.65,4.15,1.6,.57);
   for(const [x,z,sc,flowers]of[[-5.4,-1.35,1.2,true],[-5.5,3.65,1.15,true],[-4.35,4.18,.9,false],[-3.62,4.18,.8,true],[.8,-3.94,1.15,true],[1.2,-2.86,.75,false],[1.35,-1.2,.9,true],[1.1,.35,.85,false],[2.0,1.20,.8,true],[5.4,4.12,.9,true],[4.35,4.18,1.0,false],[-.1,4.18,.85,true]])pot(garden,x,z,sc,flowers);
-  for(const x of [-5.7,-4.7,-3.7,-.4,1.4,2.6,3.6,5.6]){foliage(garden,x,.28,4.65,.75,x>1);vine(garden,x,4.95,.8+random()*1.10);}
-  for(const z of [-3.65,-1.0,1.4,3.75]){foliage(garden,-6.0,.32,z,.8,true);vine(garden,-6.42,z,.6+random(),true);}
-  for(const x of [-4.8,-1.1,3.4,5.6])moss(exterior,x,-.12,4.96,1.2,.32,'front');moss(exterior,-6.4,-.05,1.5,1.0,.46,'side');
+  for(const x of [-5.7,-4.7,-3.7,-.4,1.4,2.6,3.6,5.6]){foliage(garden,x,.28,4.65,.75,x>1);wallGrowth(x,4.95,.8+random()*1.10);}
+  for(const z of [-3.65,-1.0,1.4,3.75]){foliage(garden,-6.0,.32,z,.8,true);wallGrowth(-6.42,z,.6+random(),true);}
+  // New growth is rooted along the fence, leaving the entrance and central walkway open.
+  for(const [u,width,height]of[[-5.45,1.05,1.62],[-4.1,1.15,1.28],[-.7,1.05,1.16],[1.5,1.15,1.46],[3.45,1.35,1.55],[5.45,1.0,1.3]])surfacePatch(garden,ivySurfaces[stats.fenceClimbers%4],'z',4.795,1,u,.39+height/2,width,height,[-6.18,6.18,.36,1.92],'ivy');
+  for(const [z,width,height]of[[-3.8,1.05,1.6],[-1.35,1.25,1.35],[1.3,1.35,1.55],[3.7,1.1,1.5]])surfacePatch(garden,ivySurfaces[stats.fenceClimbers%4],'x',-6.205,-1,z,.39+height/2,width,height,[-4.77,4.77,.36,1.92],'ivy');
+  for(const [u,height]of[[-4.4,1.5],[-1.45,1.35],[.7,1.45]])surfacePatch(garden,ivySurfaces[stats.fenceClimbers%4],'z',-4.795,-1,u,.39+height/2,1.3,height,[-6.18,6.18,.36,1.92],'ivy');
+  for(const u of [-4.2,-1.8,1.3,4.4])surfacePatch(exterior,mossSurfaces[stats.wallMossPatches%4],'z',-4.9475,-1,u,-.01,1.45,.53,[-6.325,6.325,-.305,.275],'moss');
+  for(const u of [-3.3,.7])surfacePatch(exterior,mossSurfaces[stats.wallMossPatches%4],'x',6.325,1,u,-.01,1.25,.53,[-4.9,4.9,-.305,.275],'moss');
   // Watering can, pail, hose and drainage complete the usable terrace.
   const can=g(fixed,1.22,.05,1.38);c(can,0,.19,0,.16,.19,.37,blue,12);tor(can,-.11,.24,0,.21,.025,blue);pipeCurve(can,[[.08,.12,0],[.28,.26,0],[.36,.36,0]],.034,blue);s(can,.38,.39,0,.06,metal);c(fixed,.72,.18,1.48,.16,.12,.36,dark,12);tor(fixed,.72,.37,1.48,.16,.018,metal,Math.PI/2);
   for(let j=0;j<3;j++){const hose=tor(fixed,1.30,.09+j*.035,2.75,.40-j*.04,.028,mat(0x526d50),Math.PI/2);hose.scale.x=1.2;}pipeCurve(fixed,[[1.72,.08,2.75],[2.2,.08,3.1],[2.15,.08,3.8]],.026,leafMaterials[0]);b(fixed,5.45,.065,2.14,.44,.025,.44,dark);for(let j=0;j<6;j++)b(fixed,5.27+j*.071,.084,2.14,.02,.015,.39,metal);

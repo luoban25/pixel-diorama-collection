@@ -19,7 +19,7 @@
       "roughness"
     ],
     "stoneWorldUV": true,
-    "mossPatches": 219,
+    "mossPatches": 214,
     "doors": [
       {
         "floor": 0,
@@ -197,7 +197,226 @@
     "type": "lived-in rooftop terrace",
     "clothes": 8,
     "flowerPots": 12,
-    "trailingVines": 12,
+    "trailingVines": 0,
+    "wallMossPatches": 30,
+    "fenceClimbers": 13,
+    "vegetationClearances": [
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "ivy",
+        "minGap": 0.03500000000000014,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      },
+      {
+        "kind": "moss",
+        "minGap": 0.008000000000000007,
+        "within": true
+      }
+    ],
     "chairs": 3,
     "table": true,
     "waterTank": true,
@@ -225,41 +444,41 @@
     },
     "clothAngles": [
       [
-        0.01711038118294134,
-        0.005810893045846321
+        0.01670763280034795,
+        0.005656934562339241
       ],
       [
-        0.027530595704609594,
-        0.013388130428071125
+        0.02743397994660441,
+        0.013279022041637481
       ],
       [
-        0.023919809217820085,
-        0.017557941551641754
+        0.024178566420956255,
+        0.017521452545152725
       ],
       [
-        0.008118263371575216,
-        0.01725906368144979
+        0.00860051761797925,
+        0.017304480907877937
       ],
       [
-        0.023919809217820085,
-        0.017557941551641754
+        0.024178566420956255,
+        0.017521452545152725
       ],
       [
-        0.008118263371575216,
-        0.01725906368144979
+        0.00860051761797925,
+        0.017304480907877937
       ],
       [
-        -0.01182076510583646,
-        0.01256756451854538
+        -0.011360795269287825,
+        0.012683328794869744
       ],
       [
-        -0.025735326517576783,
-        0.0046774821346384126
+        -0.025532065267887226,
+        0.004834130180897614
       ]
     ],
     "catTail": [
-      0.04519583480102694,
-      0.0611085042247905
+      0.04399837992930522,
+      0.059670117144099824
     ]
   },
   "rooftopLoopError": 4.898587196589413e-17,
