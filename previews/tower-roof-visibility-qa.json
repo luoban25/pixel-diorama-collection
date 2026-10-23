@@ -1,0 +1,112 @@
+{
+  "passed": true,
+  "transitionSamples": 168,
+  "checks": [
+    {
+      "label": "wheel 0/1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 0/1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 0/1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 0/1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 0/-1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 0/-1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 0/-1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 0/-1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 1/1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 1/1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 1/1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 1/1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 1/-1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 1/-1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 1/-1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "wheel 1/-1200",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "slider 3",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "slider 4",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "slider 2",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "slider 3",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "slider 4",
+      "samples": 8,
+      "roofVisible": true
+    }
+  ],
+  "errors": []
+}
