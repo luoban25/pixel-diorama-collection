@@ -2,12 +2,13 @@
 /* TOWER_ARCHITECTURE */
 /* TOWER_ROOFTOP */
 /* TOWER_CONCERT */
+/* TOWER_GREENHOUSE */
 /* TOWER_PROJECTS */
 function buildTower(){
-  const P=towerProps(),{M,g,b,c,r,s,tor,text,plant,planter,tree}=P,N=4,H=6.4,root=new THREE.Group();scene.add(root);
+  const P=towerProps(),{M,g,b,c,r,s,tor,text,plant,planter,tree}=P,N=5,H=6.4,root=new THREE.Group();scene.add(root);
   const A={W:12.65,D:9.80,innerW:11.90,innerD:9.044,column:.76,H,surface:.35,wallX:6.28,wallThickness:.48,doorZ:3.25,floorCount:N};
   const architecture=buildingArchitecture(P,A),{sb,slab,rail,stairs,wall,mossLevel,pipeLevel,foundationDetails,roofAccess}=architecture;
-  const layers=[],modules=[],types=['basketball','pond','cricket','concert'],names={basketball:'街头篮球',pond:'秋日钓鱼池塘',cricket:'板球场',concert:'现场演出'};
+  const layers=[],modules=[],types=['basketball','pond','cricket','concert','greenhouse'],names={basketball:'街头篮球',pond:'秋日钓鱼池塘',cricket:'板球场',concert:'现场演出',greenhouse:'温室农场'};
   const foundation=g(root);sb(foundation,1.25,-.32,0,17.2,.65,11.5,true);sb(foundation,1.25,.035,0,17.4,.13,11.7);
   for(const x of [-6.0,0,6.0])for(const z of [-4.45,4.45]){sb(foundation,x,-.79,z,1.16,.54,1.16);sb(foundation,x,-1.10,z,1.52,.10,1.52,true);}
   for(let x=-6.65;x<9.5;x+=.75)for(let z=-5.45;z<5.6;z+=.75){const tile=b(foundation,x,.12,z,.71,.035,.71,(Math.floor(x*3+z*2)%3)?M.light:M.concrete);tile.castShadow=false;}
@@ -18,11 +19,11 @@ function buildTower(){
     slab(structure);
     for(const x of [-6.0,0,6.0])for(const z of [-4.45,4.45]){const p=i===3?cover:structure;sb(p,x,H/2,z,A.column,H,A.column);sb(p,x,.18,z,.94,.32,.94);sb(p,x,H-.37,z,.94,.32,.94);}
     for(const z of [-4.45,4.45])sb(i===3?cover:structure,0,H-.35,z,12.76,.70,.76);for(const x of [-6.0,0,6.0])sb(i===3?cover:structure,x,H-.35,0,.76,.70,9.66);
-    const imported=types[i]==='concert'?concertFloor(P,A,interior):installProject(interior,types[i],H,{width:A.innerW,depth:A.innerD,surface:A.surface});modules.push(imported);
+    const imported=types[i]==='concert'?concertFloor(P,A,interior):types[i]==='greenhouse'?greenhouseFloor(P,A,interior,exterior):installProject(interior,types[i],H,{width:A.innerW,depth:A.innerD,surface:A.surface});modules.push(imported);
     rail(exterior,-6.15,4.78,-4.8,4.78,.70,M.iron,.32);rail(exterior,4.8,4.78,6.15,4.78,.70,M.iron,.32);rail(exterior,-6.19,-4.66,-6.19,4.78,.74,M.iron,.32);
     for(const x of [-5.8,5.8])plant(exterior,x,4.57,.62,.32,i);
-    mossLevel(exterior,i);wall(walls,i);pipeLevel(exterior,i);
-    text(exterior,String(i+1).padStart(2,'0')+' / '+['BASKETBALL','FISHING POND','CRICKET','LIVE STAGE'][i],-2.8,-.055,4.92,2.5,.18,'#c7c4b3','#455b50');
+    if(types[i]!=='greenhouse')mossLevel(exterior,i);wall(walls,i);pipeLevel(exterior,i);if(imported.paintArchitecture)imported.paintArchitecture([structure,walls]);
+    text(exterior,String(i+1).padStart(2,'0')+' / '+['BASKETBALL','FISHING POND','CRICKET','LIVE STAGE','GREENHOUSE'][i],-2.8,-.055,types[i]==='greenhouse'?4.969:4.92,2.5,.18,'#c7c4b3','#455b50');
     stairs(stairsRoot,i,i===N-1);layers.push({parent,structure,cover,interior,exterior,walls,stairs:stairsRoot,type:types[i],label:names[types[i]],index:i,baseY:parent.position.y,project:imported});
   }
   const roof=g(root,0,N*H+.19,0),roofStructure=g(roof),roofInterior=g(roof),roofWalls=g(roof),roofExterior=g(roof);
@@ -37,6 +38,6 @@ function buildTower(){
   }
   function update(t){for(const module of modules)module.update(t);rooftop.update(t);updateInstances();}
   function prepareReflection(renderer,camera){for(const module of modules)module.prepareReflection(renderer,camera);}
-  function inspect(){const projects=modules.map(m=>m.inspect());return{floors:N,levels:N+1,spacing:H,height:N*H+6,architecture:architecture.stats,rooftop:rooftop.inspect(),mode,progress,roofVisible:roof.visible,visibleLevels:layers.filter(l=>l.parent.visible).length,visibleInteriors:layers.filter(l=>l.parent.visible&&l.interior.visible).length,visibleWalls:layers.filter(l=>l.parent.visible&&l.walls.visible).length,stairFlights:N*2,columnBays:6,reusedProjects:types.filter(id=>id!=='concert'),types:layers.map(l=>l.type),levelPositions:layers.map(l=>({type:l.type,y:l.parent.position.y})),projects,athletes:projects[0].animation.players.length,basketball:projects[0].animation};}
+  function inspect(){const projects=modules.map(m=>m.inspect());return{floors:N,levels:N+1,spacing:H,height:N*H+6,architecture:architecture.stats,rooftop:rooftop.inspect(),mode,progress,roofVisible:roof.visible,visibleLevels:layers.filter(l=>l.parent.visible).length,visibleInteriors:layers.filter(l=>l.parent.visible&&l.interior.visible).length,visibleWalls:layers.filter(l=>l.parent.visible&&l.walls.visible).length,stairFlights:N*2,columnBays:6,reusedProjects:types.filter(id=>!['concert','greenhouse'].includes(id)),types:layers.map(l=>l.type),levelPositions:layers.map(l=>({type:l.type,y:l.parent.position.y})),projects,athletes:projects[0].animation.players.length,basketball:projects[0].animation};}
   setState();return{root,layers,foundation,height:N*H+6,floors:N,spacing:H,modules,setState,update,prepareReflection,inspect};
 }

@@ -1,6 +1,6 @@
-# Pixel scene collection: cricket, fishing, Western railway, street basketball and four-level scene building
+# Pixel scene collection: cricket, fishing, Western railway, street basketball and five-level scene building
 
-The delivered `index.html` is a self-contained scene switcher. Cricket, the fishing pond, the Western railway, street basketball and the four-level scene building are separate projects, embedded as independent renderers. Only the active project animates. The gallery has five scene buttons at the bottom. All geometry, textures and shader logic run locally, with no CDN requests. The scene building has its own compact overview, floor, structure and construction controls.
+The delivered `index.html` is a self-contained scene switcher. Cricket, the fishing pond, the Western railway, street basketball and the five-level scene building are separate projects, embedded as independent renderers. Only the active project animates. The gallery has five scene buttons at the bottom. All geometry, textures and shader logic run locally, with no CDN requests. The scene building has its own compact overview, floor, structure and construction controls.
 
 ## Visual direction
 
@@ -67,3 +67,8 @@ The building embeds actual source geometry and animation, not screenshots. Baske
 The building's structural shell, imported scenes and exterior decoration are independent visibility groups. Structure mode hides the actual scene geometry. A continuous assembly progress reveals structural modules, then the original scene, then balcony decoration. Native sliders and buttons provide pause, floor selection, progress scrubbing and reduced-motion operation. Static geometry is merged per visibility group, moving parts are instanced, and transparent water, fishing lines and ripples retain their own live materials. Inactive scenes stop their animation loop.
 
 `projects/tower/README.md` describes the architectural hierarchy, stage timing, source reuse and editing points. `scenes/tower/index.html` is the standalone self-contained delivery. `tower-projects-qa.cjs` records offline loading, 17 old-file hashes, all three original animation loops, 580 scene/floor boundary checks, structural visibility, construction stages, pause/resume and responsive controls in `previews/tower-qa.json`. The earlier tower version is saved in `versions/tower-before-original-scenes/`. The published GitHub checkout is separate from this local addition.
+
+
+## Greenhouse farm (05F)
+
+The user's greenhouse reference informs six arched growing tunnels, planted rows, water tanks, utility wires, a blue pickup, harvest crates and workers. All geometry and textures are locally authored procedural assets. Natural farm soil and earthen beds replace tiled paving. Only the new story's concrete frame and flat wall moss match the preserved rooftop palette; the original four occupied stories and rooftop source remain preserved. The farm occupies its own story between the concert and rooftop. No reference image is distributed with the project.

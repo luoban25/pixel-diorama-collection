@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "transitionSamples": 168,
+  "transitionSamples": 184,
   "checks": [
     {
       "label": "wheel 0/1200",
@@ -93,6 +93,11 @@
       "roofVisible": true
     },
     {
+      "label": "slider 5",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
       "label": "slider 2",
       "samples": 8,
       "roofVisible": true
@@ -104,6 +109,11 @@
     },
     {
       "label": "slider 4",
+      "samples": 8,
+      "roofVisible": true
+    },
+    {
+      "label": "slider 5",
       "samples": 8,
       "roofVisible": true
     }

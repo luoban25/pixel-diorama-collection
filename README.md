@@ -1,14 +1,14 @@
 # 像素微缩场景 · Pixel Diorama Collection
 
-[在线浏览四层场景楼](https://luoban25.github.io/pixel-diorama-collection/?scene=tower) · [街头篮球](https://luoban25.github.io/pixel-diorama-collection/?scene=basketball) · [全部场景](https://luoban25.github.io/pixel-diorama-collection/) · [浏览器在线开发](https://codespaces.new/luoban25/pixel-diorama-collection?ref=main)
+[在线浏览五层场景楼](https://luoban25.github.io/pixel-diorama-collection/?scene=tower) · [街头篮球](https://luoban25.github.io/pixel-diorama-collection/?scene=basketball) · [全部场景](https://luoban25.github.io/pixel-diorama-collection/) · [浏览器在线开发](https://codespaces.new/luoban25/pixel-diorama-collection?ref=main)
 
 [直接查看生活屋顶露台](https://luoban25.github.io/pixel-diorama-collection/?scene=tower&floor=roof)：水泥小房、铁丝围栏、晾衣绳、木桌椅、花盆藤蔓、空调、水箱、爬梯与橘白小猫。衣物和小猫有轻微循环动作，屋顶模式使用较高的固定正交视角。
 
-[直接查看第4层演出现场](https://luoban25.github.io/pixel-diorama-collection/?scene=tower&floor=concert)：舞台、桁架、竖屏、音箱、四名乐手、66名观众、暖色灯光、调音棚、器材箱和货车。演出现场是板球场之后的独立楼层，生活露台继续保留在最上方。第4层放大视图临时剖开遮挡舞台的结构，回全景后恢复完整楼体。
+[直接查看第4层演出现场](https://luoban25.github.io/pixel-diorama-collection/?scene=tower&floor=concert)：舞台、桁架、竖屏、音箱、四名乐手、66名观众、彩色扫射灯光、调音棚、器材箱和货车。演出现场是板球场之后的独立楼层，生活露台继续保留在最上方。楼层浏览保持屋顶及其支撑连续显示。
 
-四个独立保存的 Three.js 等距微缩场景，加上一栋四层场景楼。固定正交相机，底部切换场景。
+四个独立保存的 Three.js 等距微缩场景，加上一栋五层场景楼。固定正交相机，底部切换场景。
 
-- **四层场景楼**：从下至上为街头篮球、秋日池塘、板球场、现场演出；厚石框架、自然苔藓、红色双跑楼梯、贯通侧墙、各层铁门及红蓝管线。支持全景、逐层查看、框架和搭建进度。
+- **五层场景楼**：从下至上为街头篮球、秋日池塘、板球场、现场演出、温室农场；厚石框架、自然苔藓、红色双跑楼梯、贯通侧墙、各层铁门及红蓝管线。支持全景、逐层查看、框架和搭建进度。
 
 - **街头篮球**：旧蓝色球场、街角商店与贩卖机、树木、铁丝围栏和由像素 X 簇拥渐隐的边缘。六名球员服装各异，两边交替运球、起跳投篮、接球与反弹回传，配合接应跑动和防守移动；四位观众有独立休闲穿搭。
 - **西部列车**：红岩荒漠、石拱、木桥峡谷、蒸汽列车、六名奔马骑手、风车和水塔；12 秒循环动画。
@@ -17,7 +17,7 @@
 
 ![街头篮球场景](previews/basketball.png)
 
-![四层场景楼](previews/tower-overview.png)
+![五层场景楼](previews/tower-overview.png)
 
 ![生活屋顶露台](previews/tower-rooftop.png)
 
@@ -32,7 +32,7 @@ GitHub Pages 上可直接浏览，无需登录。也可以下载仓库中的 `in
 ## 浏览器在线开发
 
 1. 打开 [GitHub Codespaces 开发入口](https://codespaces.new/luoban25/pixel-diorama-collection?ref=main)，登录自己的 GitHub 账号并创建工作环境。
-2. 环境会安装依赖、启动开发服务并转发 **5319** 端口。在 Ports 面板打开“场景预览”，网址后加 `?scene=tower` 查看三层楼。
+2. 环境会安装依赖、启动开发服务并转发 **5319** 端口。在 Ports 面板打开“场景预览”，网址后加 `?scene=tower` 查看场景楼。
 3. 修改 `projects/tower/src/` 中的源码并保存，预览会自动构建、刷新。其他场景分别在 `projects/` 对应目录。
 4. 在 Source Control 中提交并推送；更新进入 `main` 后，GitHub Actions 会自动构建并发布到 Pages。通过仓库的 Actions 查看发布进度。
 
@@ -64,3 +64,10 @@ npm run dev
 ## 来源
 
 场景几何由程序生成；楼体石材使用 [Poly Haven Rock 04](https://polyhaven.com/a/rock_04)（Rob Tuytel，CC0）的内嵌贴图，其余纹理由程序生成。Three.js r180 使用 MIT 许可，许可随构建页面内嵌，并保留于 [THIRD_PARTY_LICENSES.txt](THIRD_PARTY_LICENSES.txt)。渲染技术参考与视觉来源见 [SOURCES.md](SOURCES.md)。参考图片未打包进仓库。
+
+
+## 第5层：温室农场
+
+[直接查看温室农场](https://luoban25.github.io/pixel-diorama-collection/?scene=tower&floor=greenhouse)。六座拱顶透明温室，180株蔬菜与番茄，泥土地面、土垄、水箱、工具棚、货箱、蓝色小货车和四名工作人员。新楼层梁柱和外沿使用与楼顶接近的米灰水泥色及贴壁苔藓；原生活屋顶上移一层并完整保留。
+
+![温室农场](previews/tower-greenhouse.png)

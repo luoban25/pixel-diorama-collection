@@ -2,7 +2,7 @@
   "name": "pixel-diorama-collection",
   "version": "1.0.0",
   "private": true,
-  "description": "Animated Three.js pixel dioramas and a three-level scene building",
+  "description": "Animated Three.js pixel dioramas and a five-level scene building",
   "scripts": {
     "build": "node build.cjs",
     "dev": "node scripts/dev.cjs",
