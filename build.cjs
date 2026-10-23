@@ -3,6 +3,7 @@ const fs=require('node:fs'),path=require('node:path');
 const root=__dirname;
 const esbuild=require('esbuild');
 const configs=[
+  {id:'tower',title:'三层场景楼',source:'projects/tower/src/main.js',environment:'projects/tower/src/building.js',shell:'projects/tower/shell.html',nativeGallery:true,fragments:{TOWER_PROPS:'projects/tower/src/props.js',TOWER_ARCHITECTURE:'projects/tower/src/architecture.js',TOWER_PROJECTS:'projects/tower/src/projects.js',PROJECT_BASKETBALL:'projects/basketball/src/basketball.js',BASKETBALL_OUTFITS:'projects/basketball/src/outfits.js',BASKETBALL_PLAY:'projects/basketball/src/play.js',BASKETBALL_ACTIONS:'projects/basketball/src/actions.js',PROJECT_POND:'projects/pond/src/pond.js',PROJECT_CRICKET:'projects/cricket/src/main.js'}},
   {id:'cricket',title:'板球场',source:'projects/cricket/src/main.js',environment:'projects/cricket/src/environment.js'},
   {id:'pond',title:'钓鱼池塘',source:'projects/pond/src/main.js',environment:'projects/pond/src/pond.js'},
   {id:'basketball',title:'街头篮球',source:'projects/basketball/src/main.js',environment:'projects/basketball/src/basketball.js',fragments:{BASKETBALL_OUTFITS:'projects/basketball/src/outfits.js',BASKETBALL_PLAY:'projects/basketball/src/play.js',BASKETBALL_ACTIONS:'projects/basketball/src/actions.js'}},
@@ -32,12 +33,18 @@ async function build(){
   const shell=fs.readFileSync(path.join(root,'src/scene-shell.html'),'utf8'),payload={};
   for(const config of configs){
     let environmentSource=fs.readFileSync(path.join(root,config.environment),'utf8');
-    for(const [marker,file] of Object.entries(config.fragments||{}))environmentSource=environmentSource.replace(`/* ${marker} */`,()=>fs.readFileSync(path.join(root,file),'utf8'));
-    const source=adaptToGallery(fs.readFileSync(path.join(root,config.source),'utf8'),config.id)
+    for(const [marker,file] of Object.entries(config.fragments||{})){
+      let fragment=fs.readFileSync(path.join(root,file),'utf8');
+      if(config.id==='tower'&&['PROJECT_CRICKET','PROJECT_POND'].includes(marker))fragment=require('./projects/tower/project-source.cjs')(marker.slice(8).toLowerCase(),fragment,fs,path,root);
+      environmentSource=environmentSource.replace(`/* ${marker} */`,()=>fragment);
+    }
+    const mainSource=fs.readFileSync(path.join(root,config.source),'utf8');
+    const source=(config.nativeGallery?mainSource:adaptToGallery(mainSource,config.id))
       .replace('/* ENVIRONMENT_SOURCE */',()=>environmentSource);
-    const result=await esbuild.build({stdin:{contents:source,resolveDir:root,sourcefile:config.id+'.js'},bundle:true,minify:true,write:false,legalComments:'inline',format:'iife',target:['es2020'],nodePaths:[path.join(root,'node_modules')]});
+    const result=await esbuild.build({stdin:{contents:source,resolveDir:root,sourcefile:config.id+'.js'},bundle:true,minify:true,write:false,legalComments:'inline',format:'iife',target:['es2020'],loader:{'.jpg':'dataurl'},nodePaths:[path.join(root,'node_modules')]});
     const code=`/* Three.js MIT License\n${license.replace(/\*\//g,'* /')}\n*/\n${result.outputFiles[0].text}`;
-    const page=shell.replaceAll('SCENE_TITLE',config.title).replace('/* EMBEDDED_APP */',()=>code.replace(/<\/script/gi,'<\\/script'));
+    const sceneShell=config.shell?fs.readFileSync(path.join(root,config.shell),'utf8'):shell;
+    const page=sceneShell.replaceAll('SCENE_TITLE',config.title).replace('/* EMBEDDED_APP */',()=>code.replace(/<\/script/gi,'<\\/script'));
     const out=path.join(root,'scenes',config.id);fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'index.html'),page);
     payload[config.id]=Buffer.from(page,'utf8').toString('base64');
     console.log(`${config.id}: ${(Buffer.byteLength(page)/1024).toFixed(1)} KiB`);
@@ -46,4 +53,5 @@ async function build(){
   fs.writeFileSync(path.join(root,'index.html'),gallery);
   console.log(`Self-contained gallery: ${(Buffer.byteLength(gallery)/1024/1024).toFixed(2)} MiB`);
 }
-build().catch(e=>{console.error(e);process.exitCode=1;});
+if(require.main===module)build().catch(e=>{console.error(e);process.exitCode=1;});
+module.exports=build;

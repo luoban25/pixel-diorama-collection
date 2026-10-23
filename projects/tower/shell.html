@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">
+  <title>SCENE_TITLE</title>
+  <style>
+    :root{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;color:#4f594f;background:#f4f2ed;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+    *{box-sizing:border-box}[hidden]{display:none!important}html,body,main,#stage{width:100%;height:100%;margin:0;overflow:hidden;background:#f4f2ed}main{position:relative}#stage{position:absolute;inset:0;touch-action:none;cursor:grab}#stage:active{cursor:grabbing}canvas{display:block;width:100%;height:100%;image-rendering:pixelated}
+    .views{position:absolute;left:50%;top:24px;transform:translateX(-50%);display:flex;gap:3px;padding:4px;border-radius:26px;background:#fffffff2;box-shadow:0 1px 3px #00000008,0 5px 24px #00000008}
+    button{height:40px;min-width:64px;padding:0 16px;font:11px/1 Arial,"Microsoft YaHei",sans-serif;white-space:nowrap;color:#747a6f;background:transparent;border:0;border-radius:22px;cursor:pointer;transition:background-color 160ms ease,color 160ms ease,transform 160ms ease}button:hover{background:#f0f1e9;color:#405a48}button[aria-pressed=true]{background:#e9ede2;color:#405a48}button:active{transform:scale(.96)}button:focus-visible,input:focus-visible{outline:2px solid #788967;outline-offset:3px}
+    #build-view{width:88px;padding:0}
+    .floor-control{position:absolute;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:14px;color:#8c9184;font-size:10px}.floor-control input{writing-mode:vertical-lr;direction:rtl;width:40px;height:min(45vh,420px);accent-color:#7d8c6a;cursor:ns-resize}
+    #floor-output{position:absolute;left:50%;bottom:112px;transform:translateX(-50%);font-size:11px;letter-spacing:.035em;background:#ffffffe6;padding:11px 17px;border-radius:20px;box-shadow:0 2px 12px #00000005;pointer-events:none}
+    .assembly{position:absolute;left:50%;bottom:112px;transform:translateX(-50%);display:flex;align-items:center;gap:16px;padding:10px 17px;background:#fffffff0;border-radius:24px;box-shadow:0 2px 12px #00000008}.assembly input{width:min(42vw,260px);height:24px;accent-color:#7d8c6a;cursor:ew-resize}.assembly output{font-size:11px;min-width:44px}
+    #loading{position:absolute;inset:0;display:grid;place-items:center;background:#f4f2ed;color:#78806f;font-size:12px}
+    @media(max-width:600px){.views{top:18px}.views button{min-width:55px;padding:0 11px}.floor-control{right:6px}.floor-control input{height:36vh}#floor-output,.assembly{bottom:104px}}
+    @media(prefers-reduced-motion:reduce){button{transition:none}}
+  </style>
+</head>
+<body>
+  <main aria-label="三层场景楼，篮球场、池塘和板球场各占一层，可查看结构和逐层搭建">
+    <div id="stage" role="img" aria-label="等距城市建筑，滚轮或拖动上下浏览楼层"></div>
+    <nav class="views" aria-label="建筑查看方式">
+      <button id="overview-view" type="button" aria-pressed="true" title="查看整栋建筑">全景</button>
+      <button id="detail-view" type="button" aria-pressed="false" title="放大楼层，滚轮或上下方向键切换">楼层</button>
+      <button id="structure-view" type="button" aria-pressed="false" title="显示楼板、梁柱和贯通楼梯">框架</button>
+      <button id="build-view" type="button" aria-pressed="false" title="从底层向上逐层搭建，可暂停和拖动进度">搭建</button>
+    </nav>
+    <label id="floor-control" class="floor-control"><span>RF</span><input id="floor-range" type="range" min="0" max="3" step="1" value="0" aria-label="查看楼层"><span>01</span></label>
+    <output id="floor-output" hidden></output>
+    <label id="assembly" class="assembly" hidden><input id="assembly-range" type="range" min="0.02" max="4" step="0.01" value="4" aria-label="逐层搭建进度"><output id="assembly-output">3 / 3</output></label>
+    <div id="loading" role="status">正在放入你的场景…</div>
+    <noscript>请启用 JavaScript 查看三维场景。</noscript>
+  </main>
+  <script>/* EMBEDDED_APP */</script>
+</body>
+</html>

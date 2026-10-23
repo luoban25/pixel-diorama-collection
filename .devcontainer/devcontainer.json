@@ -1,0 +1,11 @@
+{
+  "name": "Pixel Diorama Studio",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "postCreateCommand": "npm ci",
+  "postStartCommand": "npm run dev > /tmp/pixel-diorama-dev.log 2>&1 &",
+  "forwardPorts": [5319],
+  "portsAttributes": {
+    "5319": {"label": "场景预览", "onAutoForward": "openBrowser", "protocol": "http"}
+  },
+  "remoteEnv": {"HOST": "0.0.0.0", "PORT": "5319"}
+}

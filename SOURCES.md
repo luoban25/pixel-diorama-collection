@@ -1,6 +1,6 @@
-# Pixel scene collection: cricket, fishing, Western railway and street basketball
+# Pixel scene collection: cricket, fishing, Western railway, street basketball and three-level scene building
 
-The delivered `index.html` is a self-contained scene switcher. Cricket, the fishing pond, the Western railway and street basketball are separate preserved projects, embedded as independent renderers. Only the active project animates. The only visible interface is the four scene buttons at the bottom. All geometry, textures and shader logic run locally, with no CDN requests.
+The delivered `index.html` is a self-contained scene switcher. Cricket, the fishing pond, the Western railway, street basketball and the three-level scene building are separate projects, embedded as independent renderers. Only the active project animates. The gallery has five scene buttons at the bottom. All geometry, textures and shader logic run locally, with no CDN requests. The scene building has its own compact overview, floor, structure and construction controls.
 
 ## Visual direction
 
@@ -27,7 +27,7 @@ The delivered `index.html` is a self-contained scene switcher. Cricket, the fish
 
 ## Files
 
-- `index.html`: minimal four-scene gallery; open directly in a modern browser, including offline.
+- `index.html`: five-scene gallery; open directly in a modern browser, including offline.
 - `projects/cricket/src/`: independent cricket source, restored from the saved pixel cricket project.
 - `projects/pond/src/`: independent fishing pond source.
 - `projects/western/src/`: independently authored Western railway scene based on the user's supplied desert railway image. Train, articulated horses/riders, trestle, layered red rock, stone arch, cacti, wind pump and water tank are procedural Three.js geometry. All textures are local Canvas textures; no downloaded models or image-generation assets are required.
@@ -51,3 +51,15 @@ The perimeter uses clusters of camera-facing X marks, each built from five squar
 The six athletes have different jersey colors, short colors, shoes and trim; four bystanders have separate casual outfits. `outfits.js` supplies the wardrobe and joint-attached garment details. `play.js` defines continuous world-space dribbles, gravity-driven shots, net passage, catches and bounce passes. `actions.js` synchronizes articulated hands, knee bends, jumps, receiver runs and defensive shuffles with two six-second practice possessions, offset by three seconds. The shared twelve-second clock remains seamless. The camera, scenery, lighting, navigation and pixel-X fringe are preserved. `previews/basketball-actions-qa.json` records actual figure/ball transform checks for both hoop crossings, shot hand contacts, movement, ball height and phase boundaries.
 
 The character clipping correction restores collar dimensions, keeps raised balls ahead of the face, points the elbows outward, and lowers catches in each receiver's local frame so turns do not pull the ball through the torso. Seated hips clear the planks and their shoes clear both the ground and fence. `basketball-clipping-qa.cjs` samples real arm and ball mesh vertices over the complete loop, validates collar depth and seated clearances, and writes `previews/basketball-clipping-qa.json`. Normal sleeve seams at the shoulder are reported separately from body penetration.
+
+## Three-level scene building
+
+The user requested one existing scene per floor and then excluded the desert. The building therefore has three occupied floors: full street basketball, the autumn fishing pond and cricket, from bottom to top. The revised architecture has 0.76-square stone columns, 0.70-deep beams, 0.64-thick stone floor frames, six red exterior stair flights and an equipment roof. Three side walls have real door openings, with an iron door at each scene level and a fourth at the roof. Blue and red utility risers connect roof equipment to open lower outlets and drain grilles. Organic masked moss follows ledges, column feet and damp areas. Generic rooms from the earlier 24-floor proposal are removed. The original four independent projects and pages remain byte-identical; Western is excluded from the building, not erased from its independent project.
+
+The tower's stone uses **Rock 04 by Rob Tuytel, Poly Haven, CC0**: https://polyhaven.com/a/rock_04 and https://polyhaven.com/license. Its 1K color, bump and roughness JPEG maps are stored in `projects/tower/assets/`, with original URLs and verified MD5 hashes in `stone-source.json`. All three maps are embedded in the built HTML. World-scale UVs prevent stretching on columns and beams. Other architectural texture canvases are authored locally. Each source terrain fits the same 11.90 × 9.044 floor opening at its original uniform aspect ratio; the floor ring has a recessed interior so pond water remains unobstructed. The previous thinner tower is preserved in `versions/tower-before-stone-frame/`.
+
+The building embeds actual source geometry and animation, not screenshots. Basketball includes its original shop, tree, vending machines, pixel-X perimeter, six athletes and four bystanders. The pond retains its shoreline, autumn foliage, two anglers, nine fish, ripples and planar water reflection. Cricket retains its platform, striped grass, pitch, wickets, furniture, twelve articulated players and ball delivery. Each project evaluates its original local animation before applying its fitted scale and floor transform. Independent material caches preserve project textures; reflection cameras and fishing lines are transformed consistently.
+
+The building's structural shell, imported scenes and exterior decoration are independent visibility groups. Structure mode hides the actual scene geometry. A continuous assembly progress reveals structural modules, then the original scene, then balcony decoration. Native sliders and buttons provide pause, floor selection, progress scrubbing and reduced-motion operation. Static geometry is merged per visibility group, moving parts are instanced, and transparent water, fishing lines and ripples retain their own live materials. Inactive scenes stop their animation loop.
+
+`projects/tower/README.md` describes the architectural hierarchy, stage timing, source reuse and editing points. `scenes/tower/index.html` is the standalone self-contained delivery. `tower-projects-qa.cjs` records offline loading, 17 old-file hashes, all three original animation loops, 435 scene/floor boundary checks, structural visibility, construction stages, pause/resume and responsive controls in `previews/tower-qa.json`. The earlier tower version is saved in `versions/tower-before-original-scenes/`. The published GitHub checkout is separate from this local addition.

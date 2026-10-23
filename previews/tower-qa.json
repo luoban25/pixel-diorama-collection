@@ -1,0 +1,282 @@
+{
+  "passed": true,
+  "preservedFiles": 17,
+  "floors": 3,
+  "projects": [
+    "basketball",
+    "pond",
+    "cricket"
+  ],
+  "desertInBuilding": false,
+  "architecture": {
+    "columnThickness": 0.76,
+    "beamDepth": 0.7,
+    "slabDepth": 0.64,
+    "stoneTexture": "Poly Haven Rock 04",
+    "stoneMaps": [
+      "color",
+      "bump",
+      "roughness"
+    ],
+    "stoneWorldUV": true,
+    "mossPatches": 216,
+    "doors": [
+      {
+        "floor": 0,
+        "roof": false,
+        "center": [
+          6.545000000000001,
+          0.35,
+          3.25
+        ],
+        "width": 1.28,
+        "height": 2.45,
+        "landingHeight": 0.35,
+        "opening": true,
+        "material": "painted iron"
+      },
+      {
+        "floor": 1,
+        "roof": false,
+        "center": [
+          6.545000000000001,
+          0.35,
+          3.25
+        ],
+        "width": 1.28,
+        "height": 2.45,
+        "landingHeight": 0.35,
+        "opening": true,
+        "material": "painted iron"
+      },
+      {
+        "floor": 2,
+        "roof": false,
+        "center": [
+          6.545000000000001,
+          0.35,
+          3.25
+        ],
+        "width": 1.28,
+        "height": 2.45,
+        "landingHeight": 0.35,
+        "opening": true,
+        "material": "painted iron"
+      },
+      {
+        "floor": 3,
+        "roof": true,
+        "center": [
+          6.545000000000001,
+          0.35,
+          3.25
+        ],
+        "width": 1.28,
+        "height": 2.45,
+        "landingHeight": 0.35,
+        "opening": true,
+        "material": "painted iron"
+      }
+    ],
+    "walls": [
+      {
+        "floor": 0,
+        "x": 6.28,
+        "thickness": 0.48,
+        "doorOpening": [
+          2.46,
+          4.04,
+          0.3,
+          2.95
+        ],
+        "height": 5.78
+      },
+      {
+        "floor": 1,
+        "x": 6.28,
+        "thickness": 0.48,
+        "doorOpening": [
+          2.46,
+          4.04,
+          0.3,
+          2.95
+        ],
+        "height": 5.78
+      },
+      {
+        "floor": 2,
+        "x": 6.28,
+        "thickness": 0.48,
+        "doorOpening": [
+          2.46,
+          4.04,
+          0.3,
+          2.95
+        ],
+        "height": 5.78
+      }
+    ],
+    "pipes": [
+      {
+        "floor": 0,
+        "color": "blue",
+        "x": 6.680000000000001,
+        "z": -3.85,
+        "start": 0.48,
+        "end": 6.4
+      },
+      {
+        "floor": 0,
+        "color": "red",
+        "x": 6.680000000000001,
+        "z": 1.6,
+        "start": 0.48,
+        "end": 6.4
+      },
+      {
+        "floor": 1,
+        "color": "blue",
+        "x": 6.680000000000001,
+        "z": -3.85,
+        "start": 0,
+        "end": 6.4
+      },
+      {
+        "floor": 1,
+        "color": "red",
+        "x": 6.680000000000001,
+        "z": 1.6,
+        "start": 0,
+        "end": 6.4
+      },
+      {
+        "floor": 2,
+        "color": "blue",
+        "x": 6.680000000000001,
+        "z": -3.85,
+        "start": 0,
+        "end": 6.4
+      },
+      {
+        "floor": 2,
+        "color": "red",
+        "x": 6.680000000000001,
+        "z": 1.6,
+        "start": 0,
+        "end": 6.4
+      }
+    ],
+    "drains": [
+      {
+        "color": "blue",
+        "position": [
+          7.290000000000001,
+          0.15,
+          -3.85
+        ],
+        "openMouth": true
+      },
+      {
+        "color": "red",
+        "position": [
+          7.290000000000001,
+          0.15,
+          1.6
+        ],
+        "openMouth": true
+      }
+    ],
+    "stairColor": "#b43b30",
+    "surface": 0.35,
+    "opening": {
+      "width": 11.9,
+      "depth": 9.044
+    }
+  },
+  "athletes": 6,
+  "anglers": 2,
+  "fish": 9,
+  "cricketPlayers": 12,
+  "loopMaxError": 0,
+  "boundaryChecks": 435,
+  "offline": true,
+  "layouts": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "pass": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pass": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "pass": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "assemblyStages": [
+    {
+      "progress": 0.02,
+      "visible": 1,
+      "interiors": 0,
+      "walls": 0
+    },
+    {
+      "progress": 0.5,
+      "visible": 1,
+      "interiors": 0,
+      "walls": 0
+    },
+    {
+      "progress": 0.9,
+      "visible": 1,
+      "interiors": 1,
+      "walls": 1
+    },
+    {
+      "progress": 1.1,
+      "visible": 2,
+      "interiors": 1,
+      "walls": 1
+    },
+    {
+      "progress": 1.75,
+      "visible": 2,
+      "interiors": 2,
+      "walls": 2
+    },
+    {
+      "progress": 2.5,
+      "visible": 3,
+      "interiors": 2,
+      "walls": 2
+    },
+    {
+      "progress": 2.9,
+      "visible": 3,
+      "interiors": 3,
+      "walls": 3
+    },
+    {
+      "progress": 3.5,
+      "visible": 4,
+      "interiors": 3,
+      "walls": 3
+    },
+    {
+      "progress": 4,
+      "visible": 4,
+      "interiors": 4,
+      "walls": 4
+    }
+  ]
+}

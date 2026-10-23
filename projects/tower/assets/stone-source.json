@@ -1,0 +1,27 @@
+{
+  "asset": "Rock 04",
+  "author": "Rob Tuytel",
+  "source": "https://polyhaven.com/a/rock_04",
+  "license": "CC0",
+  "licenseURL": "https://polyhaven.com/license",
+  "maps": [
+    {
+      "name": "stone-color.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rock_04/rock_04_diff_1k.jpg",
+      "bytes": 815398,
+      "md5": "cf0ec6db74559af9204840dbe1e30a37"
+    },
+    {
+      "name": "stone-bump.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rock_04/rock_04_bump_1k.jpg",
+      "bytes": 618565,
+      "md5": "363babc5658261310a36129e92dbfc6e"
+    },
+    {
+      "name": "stone-roughness.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rock_04/rock_04_rough_1k.jpg",
+      "bytes": 346231,
+      "md5": "98c2580599e79a5d004ab00072d167c3"
+    }
+  ]
+}
