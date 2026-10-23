@@ -26,7 +26,7 @@ function buildTower(){
   }
   const roof=g(root,0,N*H+.19,0),roofStructure=g(roof),roofInterior=g(roof),roofWalls=g(roof),roofExterior=g(roof);
   sb(roofStructure,0,0,0,A.W,.64,A.D);
-  const rooftop=rooftopTerrace(P,A,architecture,roofInterior,roofWalls,roofExterior);mossLevel(roofExterior,N);
+  const rooftop=rooftopTerrace(P,A,architecture,roofInterior,roofWalls,roofExterior);
   layers.push({parent:roof,structure:roofStructure,interior:roofInterior,walls:roofWalls,exterior:roofExterior,stairs:new THREE.Group(),type:'roof',label:'生活屋顶露台',index:N,baseY:roof.position.y});
   batchGroup(foundation);
   for(const layer of layers){batchGroup(layer.structure);batchGroup(layer.exterior);batchGroup(layer.walls);batchGroup(layer.stairs);if(layer.project)batchGroup(layer.project.root);else batchGroup(layer.interior);}
