@@ -37,8 +37,8 @@ function buildingArchitecture(P,A){
     rail(p,9.18,za-.73,9.18,za+.73,.81,stairRed,S);rail(p,9.18,za+.73,6.55,za+.73,.81,stairRed,S);rail(p,6.55,zb-.73,9.18,zb-.73,.81,stairRed,S+half);
     for(const x of [6.55,9.16]){const height=last?half+S:A.H;b(p,x,height/2,zb-.72,.09,height,.09,stairRed);if(index===0)sb(p,x,-.17,zb-.72,.30,.20,.30,true);}
   }
-  function door(p,index,roof=false){
-    const x=A.wallX+A.wallThickness/2+.025,z=A.doorZ,q=g(p,x,A.surface,z);q.rotation.y=Math.PI/2;const w=1.28,h=2.45;
+  function door(p,index,roof=false,options={}){
+    const x=options.x??A.wallX+A.wallThickness/2+.025,z=options.z??A.doorZ,q=g(p,x,A.surface,z);q.rotation.y=options.yaw??Math.PI/2;const w=1.28,h=2.45;
     b(q,0,h/2,0,w,h,.09,doorIron);
     for(const xx of [-w/2-.085,w/2+.085])b(q,xx,h/2,0,.12,h+.13,.20,steel);b(q,0,h+.06,0,w+.29,.13,.20,steel);b(q,0,.02,.055,w+.30,.055,.33,steel);
     for(const yy of [.60,1.48]){b(q,0,yy,.054,w-.20,.65,.025,doorIron);for(const xx of [-w*.39,w*.39])b(q,xx,yy,.073,.018,.55,.014,steel);}
@@ -98,5 +98,5 @@ function buildingArchitecture(P,A){
     c(p,px,.28,-3.85,.126,.126,.10,steel);c(p,px,.28,1.60,.126,.126,.10,steel);
     moss(p,4.45,.33,-3.95,1.1,.75,'top');moss(p,A.wallX+.25,.70,A.doorZ+1.36,.55,.70,'side');
   }
-  return{sb,slab,rail,stairs,wall,door,moss,mossLevel,pipeLevel,foundationDetails,roofAccess,stats,stone,stoneDark,stairRed};
+  return{sb,slab,rail,stairs,wall,door,moss,mossLevel,pipeLevel,foundationDetails,roofAccess,pipeCurve,stats,stone,stoneDark,stairRed};
 }

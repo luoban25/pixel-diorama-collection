@@ -3,7 +3,7 @@ const fs=require('node:fs'),path=require('node:path');
 const root=__dirname;
 const esbuild=require('esbuild');
 const configs=[
-  {id:'tower',title:'三层场景楼',source:'projects/tower/src/main.js',environment:'projects/tower/src/building.js',shell:'projects/tower/shell.html',nativeGallery:true,fragments:{TOWER_PROPS:'projects/tower/src/props.js',TOWER_ARCHITECTURE:'projects/tower/src/architecture.js',TOWER_PROJECTS:'projects/tower/src/projects.js',PROJECT_BASKETBALL:'projects/basketball/src/basketball.js',BASKETBALL_OUTFITS:'projects/basketball/src/outfits.js',BASKETBALL_PLAY:'projects/basketball/src/play.js',BASKETBALL_ACTIONS:'projects/basketball/src/actions.js',PROJECT_POND:'projects/pond/src/pond.js',PROJECT_CRICKET:'projects/cricket/src/main.js'}},
+  {id:'tower',title:'三层场景楼',source:'projects/tower/src/main.js',environment:'projects/tower/src/building.js',shell:'projects/tower/shell.html',nativeGallery:true,fragments:{TOWER_PROPS:'projects/tower/src/props.js',TOWER_ARCHITECTURE:'projects/tower/src/architecture.js',TOWER_ROOFTOP:'projects/tower/src/rooftop.js',TOWER_PROJECTS:'projects/tower/src/projects.js',PROJECT_BASKETBALL:'projects/basketball/src/basketball.js',BASKETBALL_OUTFITS:'projects/basketball/src/outfits.js',BASKETBALL_PLAY:'projects/basketball/src/play.js',BASKETBALL_ACTIONS:'projects/basketball/src/actions.js',PROJECT_POND:'projects/pond/src/pond.js',PROJECT_CRICKET:'projects/cricket/src/main.js'}},
   {id:'cricket',title:'板球场',source:'projects/cricket/src/main.js',environment:'projects/cricket/src/environment.js'},
   {id:'pond',title:'钓鱼池塘',source:'projects/pond/src/main.js',environment:'projects/pond/src/pond.js'},
   {id:'basketball',title:'街头篮球',source:'projects/basketball/src/main.js',environment:'projects/basketball/src/basketball.js',fragments:{BASKETBALL_OUTFITS:'projects/basketball/src/outfits.js',BASKETBALL_PLAY:'projects/basketball/src/play.js',BASKETBALL_ACTIONS:'projects/basketball/src/actions.js'}},
@@ -55,3 +55,4 @@ async function build(){
 }
 if(require.main===module)build().catch(e=>{console.error(e);process.exitCode=1;});
 module.exports=build;
+

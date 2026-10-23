@@ -2,6 +2,8 @@
 
 [在线浏览三层场景楼](https://luoban25.github.io/pixel-diorama-collection/?scene=tower) · [街头篮球](https://luoban25.github.io/pixel-diorama-collection/?scene=basketball) · [全部场景](https://luoban25.github.io/pixel-diorama-collection/) · [浏览器在线开发](https://codespaces.new/luoban25/pixel-diorama-collection?ref=main)
 
+[直接查看生活屋顶露台](https://luoban25.github.io/pixel-diorama-collection/?scene=tower&floor=roof)：水泥小房、铁丝围栏、晾衣绳、木桌椅、花盆藤蔓、空调、水箱、爬梯与橘白小猫。衣物和小猫有轻微循环动作，屋顶模式使用较高的固定正交视角。
+
 四个独立保存的 Three.js 等距微缩场景，加上一栋复用原场景的三层楼。固定正交相机，底部切换场景。
 
 - **三层场景楼**：从下至上为街头篮球、秋日池塘、板球场；厚石框架、自然苔藓、红色双跑楼梯、贯通侧墙、各层铁门及红蓝管线。支持全景、逐层查看、框架和搭建进度。
@@ -14,6 +16,8 @@
 ![街头篮球场景](previews/basketball.png)
 
 ![三层场景楼](previews/tower-overview.png)
+
+![生活屋顶露台](previews/tower-rooftop.png)
 
 ## 直接打开
 
