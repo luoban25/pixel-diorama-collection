@@ -78,7 +78,7 @@ function rooftopTerrace(P,A,architecture,interior,walls,exterior){
   b(equipment,2.10,(roomTop+roomLow)/2,-1.63,.25,wallHeight,3.94,cement);b(equipment,6.28,(roomTop+roomLow)/2,-1.63,.30,wallHeight,3.94,cement);b(equipment,4.19,(roomTop+roomLow)/2,-3.60,4.43,wallHeight,.25,cement);
   for(const [x,w]of[[2.71,1.22],[5.57,1.68]])b(equipment,x,(roomTop+roomLow)/2,.35,w,wallHeight,.26,cement);
   b(equipment,4.05,(2.95+roomTop)/2,.35,1.58,roomTop-2.95,.26,cement);b(equipment,4.19,3.64,-1.63,4.68,.18,4.22,cement);
-  door(equipment,3,true,{x:4.05,z:.51,yaw:0});
+  door(equipment,A.floorCount??3,true,{x:4.05,z:.51,yaw:0});
   for(const x of [2.15,3.10,5.1,6.2])r(equipment,[x,roomLow,.49],[x,roomTop,.49],.009,cap);
   for(let j=0;j<32;j++){const x=2.25+random()*3.9,z=-3.44+random()*3.45;b(equipment,x,3.743,z,.40+random()*.26,.025,.40+random()*.22,j%5===0?paving[4]:paving[j%3]);}
   for(const z of [-3.68,.46])b(equipment,4.18,3.81,z,4.61,.17,.13,cap);for(const x of [1.93,6.44])b(equipment,x,3.81,-1.61,.13,.17,4.28,cap);
