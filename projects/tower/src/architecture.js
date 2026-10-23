@@ -7,7 +7,7 @@ function buildingArchitecture(P,A){
   const blue=new THREE.MeshStandardMaterial({color:0x2d80b3,roughness:.48,metalness:.40}),red=new THREE.MeshStandardMaterial({color:0xbf3b32,roughness:.59,metalness:.42}),steel=new THREE.MeshStandardMaterial({color:0x7b8580,roughness:.60,metalness:.65});
   const doorPaint=canvasTexture(128,256,ctx=>{ctx.fillStyle='#bdc3bd';ctx.fillRect(0,0,128,256);for(let j=0;j<2200;j++){ctx.globalAlpha=.05+rand()*.16;ctx.fillStyle=j%4?'#596364':'#e9e8d9';ctx.fillRect(rand()*128,rand()*256,.4+rand()*1.1,2+rand()*8);}ctx.globalAlpha=1;});
   const doorIron=new THREE.MeshStandardMaterial({color:0x58676c,map:doorPaint,roughness:.68,metalness:.57});
-  const stats={columnThickness:A.column,beamDepth:.70,slabDepth:.64,stoneTexture:'Poly Haven Rock 04',stoneMaps:['color','bump','roughness'],stoneWorldUV:true,mossPatches:0,doors:[],walls:[],pipes:[],drains:[],stairColor:'#b43b30',surface:A.surface,opening:{width:A.innerW,depth:A.innerD}};
+  const stats={columnThickness:A.column,beamDepth:.70,slabDepth:.64,stoneTexture:'Poly Haven Rock 04',stoneMaps:['color','bump','roughness'],stoneWorldUV:true,mossPatches:0,doors:[],walls:[],pipes:[],drains:[],landings:[],roofLandingGuarded:false,stairColor:'#b43b30',surface:A.surface,opening:{width:A.innerW,depth:A.innerD}};
   function sb(p,x,y,z,w,h,d,dark=false){
     const radius=Math.min(.045,w*.14,h*.14,d*.14),key=[w,h,d,radius].join('/');if(!stoneCache.has(key))stoneCache.set(key,new RoundedBoxGeometry(w,h,d,2,radius));
     const o=new THREE.Mesh(stoneCache.get(key),dark?stoneDark:stone);o.position.set(x,y,z);o.castShadow=o.receiveShadow=true;p.add(o);return o;
@@ -27,7 +27,7 @@ function buildingArchitecture(P,A){
     for(let j=1;j<steps*3;j++){const t=j/(steps*3);b(p,x1+(x2-x1)*t,y0+h/2,z1+(z2-z1)*t,.016,h-.10,.016,material);}
   }
   function stairs(p,index,last=false){const half=A.H/2,xs=[7.25,8.25],za=A.doorZ,zb=-2.75,S=A.surface;
-    for(const[y,z]of[[S,za],[S+half,zb-.22],[S+A.H,za]]){const front=z===za,x=front?7.50:7.85,w=front?3.40:2.70;b(p,x,y-.07,z,w,.14,front?1.50:1.06,stairRed);b(p,x,y+.004,z,w-.1,.015,front?1.43:1.00,stairEdge);}
+    for(const[y,z]of[[S,za],[S+half,zb-.22],[S+A.H,za]]){if(index>0&&y===S)continue;const front=z===za,x=front?7.50:7.85,w=front?3.40:2.70;b(p,x,y-.07,z,w,.14,front?1.50:1.06,stairRed);b(p,x,y+.004,z,w-.1,.015,front?1.43:1.00,stairEdge);stats.landings.push({owner:index,center:[x,.19+index*A.H+y,z],width:w,depth:front?1.50:1.06});}
     for(let run=0;run<2;run++){const x=xs[run],a=run?zb:za,end=run?za:zb,y0=S+run*half;
       for(let j=0;j<20;j++){const t=(j+1)/20,y=y0+half*t,z=a+(end-a)*t;b(p,x,y-.04,z,.76,.08,.335,stairRed);b(p,x,y+.003,z+.125,.76,.012,.045,stairEdge);
         for(const side of [-1,1]){c(p,x+side*.29,y+.012,z-.06,.018,.018,.015,steel,6);if(j%4===0)b(p,x+side*.40,y+.39,z,.035,.78,.035,stairRed);}
@@ -35,6 +35,7 @@ function buildingArchitecture(P,A){
       for(const side of [-1,1]){r(p,[x+side*.40,y0-.045,a],[x+side*.40,y0+half-.045,end],.060,stairRed);r(p,[x+side*.40,y0+.79,a],[x+side*.40,y0+half+.79,end],.030,stairRed);}
     }
     rail(p,9.18,za-.73,9.18,za+.73,.81,stairRed,S);rail(p,9.18,za+.73,6.55,za+.73,.81,stairRed,S);rail(p,6.55,zb-.73,9.18,zb-.73,.81,stairRed,S+half);
+    if(last){rail(p,9.18,za-.73,9.18,za+.73,.81,stairRed,S+A.H);rail(p,9.18,za+.73,6.55,za+.73,.81,stairRed,S+A.H);stats.roofLandingGuarded=true;}
     for(const x of [6.55,9.16]){const height=last?half+S:A.H;b(p,x,height/2,zb-.72,.09,height,.09,stairRed);if(index===0)sb(p,x,-.17,zb-.72,.30,.20,.30,true);}
   }
   function door(p,index,roof=false,options={}){

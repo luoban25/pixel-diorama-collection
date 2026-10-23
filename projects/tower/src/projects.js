@@ -43,15 +43,16 @@ function installProject(parent,id,availableHeight,opening={width:11.90,depth:9.0
     const filler=canvasTexture(256,192,ctx=>{ctx.fillStyle='#a4a284';ctx.fillRect(0,0,256,192);for(let j=0;j<4000;j++){ctx.globalAlpha=.10+rand()*.15;ctx.fillStyle=['#66764f','#dad2ae','#7e8960','#b7ae8e'][j%4];ctx.fillRect(rand()*256,rand()*192,1+rand()*4,1+rand()*3);}ctx.globalAlpha=1;});
     const backing=new THREE.Mesh(new THREE.PlaneGeometry(opening.width,opening.depth),new THREE.MeshStandardMaterial({map:filler,roughness:1}));backing.rotation.x=-Math.PI/2;backing.position.y=opening.surface-.012;backing.receiveShadow=true;backing.name='Terrain extended to stone floor opening';const backingRoot=new THREE.Group();parent.add(backingRoot);backingRoot.add(backing);batchGroup(backingRoot);
   }
-  const placement=root.matrix.clone(),projectInverse=new THREE.Matrix4(),localCamera=projectCamera.clone();parent.add(root);
+  const placement=root.matrix.clone(),projectInverse=new THREE.Matrix4(),localCamera=projectCamera.clone(),reflectionReview={dynamicMeshes:0,localLighting:false,dynamicLayer:false};parent.add(root);
   const withIdentity=callback=>{const savedParent=root.parent;root.parent=null;root.matrixAutoUpdate=false;root.matrix.identity();root.matrixWorld.identity();try{return callback();}finally{root.parent=savedParent;root.matrix.copy(placement);root.matrixAutoUpdate=true;root.updateWorldMatrix(true,true);}};
   function update(t){withIdentity(()=>project.update(((t%12)+12)%12));}
   function prepareReflection(renderer,camera){
     if(id!=='pond')return;for(let p=root;p;p=p.parent)if(!p.visible)return;
     root.updateWorldMatrix(true,true);projectInverse.copy(root.matrixWorld).invert();
-    localCamera.copy(camera,false);localCamera.position.copy(camera.position).applyMatrix4(projectInverse);
+    localCamera.copy(camera,false);localCamera.layers.enable(2);localCamera.layers.enable(31);localCamera.position.copy(camera.position).applyMatrix4(projectInverse);
     const worldQ=root.getWorldQuaternion(new THREE.Quaternion()).invert();localCamera.quaternion.copy(camera.quaternion).premultiply(worldQ);
     localCamera.left=camera.left/scale;localCamera.right=camera.right/scale;localCamera.top=camera.top/scale;localCamera.bottom=camera.bottom/scale;localCamera.near=.01;localCamera.far=1000;localCamera.updateProjectionMatrix();localCamera.updateMatrixWorld(true);
+    reflectionReview.dynamicMeshes=0;root.traverse(o=>{if(!o.isMesh||!o.layers.isEnabled(31)||!localCamera.layers.test(o.layers))return;for(let p=o;p;p=p.parent)if(p.userData.reflectable){reflectionReview.dynamicMeshes++;break;}});reflectionReview.localLighting=localCamera.layers.isEnabled(2);reflectionReview.dynamicLayer=localCamera.layers.isEnabled(31);
     withIdentity(()=>project.prepareReflection(renderer,localCamera));
     project.waterUniforms.reflectionMatrix.value.multiply(projectInverse);project.waterUniforms.projectWorldInverse.value.copy(projectInverse);
   }
@@ -59,7 +60,7 @@ function installProject(parent,id,availableHeight,opening={width:11.90,depth:9.0
   function inspect(){
     root.updateWorldMatrix(true,true);const current=new THREE.Box3().setFromObject(root),data=project.inspect();
     if(id==='basketball')for(const play of data.plays)play.rim=root.localToWorld(new THREE.Vector3(...play.rim)).toArray();
-    return{id,reusedOriginal:true,placement:placementInfo,bounds:{min:current.min.toArray(),max:current.max.toArray()},animation:data};
+    return{id,reusedOriginal:true,placement:placementInfo,bounds:{min:current.min.toArray(),max:current.max.toArray()},...(id==='pond'?{reflection:{...reflectionReview}}:{}),animation:data};
   }
   return{id,root,project,update,prepareReflection,inspect};
 }

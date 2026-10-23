@@ -99,8 +99,12 @@ import stoneRoughnessData from './projects/tower/assets/stone-roughness.jpg';
     overviewButton.addEventListener('click',overview);detailButton.addEventListener('click',()=>detail());structureButton.addEventListener('click',()=>{structural=!structural;buildRunning=false;if(view==='build')view='overview';apply();});
     buildButton.addEventListener('click',()=>{if(view==='build'){buildRunning=!buildRunning;}else{view='build';structural=false;buildProgress=.02;buildRunning=!reduced;}apply();});
     floorRange.addEventListener('input',()=>detail(Number(floorRange.value)));assemblyRange.addEventListener('input',()=>{buildProgress=Number(assemblyRange.value);buildRunning=false;apply();});
-    let wheel=0;stage.addEventListener('wheel',e=>{e.preventDefault();if(view!=='detail'){view='detail';buildRunning=false;}wheel+=e.deltaY;const steps=Math.trunc(wheel/75);if(steps){wheel-=steps*75;selectedFloor=THREE.MathUtils.clamp(selectedFloor-steps,0,tower.floors);}apply();},{passive:false});
-    let drag=null;stage.addEventListener('pointerdown',e=>{if(e.button!==0)return;drag={y:e.clientY,floor:selectedFloor};stage.setPointerCapture(e.pointerId);});stage.addEventListener('pointermove',e=>{if(!drag)return;if(Math.abs(e.clientY-drag.y)>6){view='detail';selectedFloor=THREE.MathUtils.clamp(Math.round(drag.floor+(e.clientY-drag.y)/65),0,tower.floors);buildRunning=false;apply();}});stage.addEventListener('pointerup',()=>{drag=null;});stage.addEventListener('pointercancel',()=>{drag=null;});
+    let wheelAmount=0,wheelLast=-Infinity,wheelDirection=0,wheelLocked=false;
+    stage.addEventListener('wheel',e=>{e.preventDefault();if(!e.deltaY||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;const now=performance.now(),direction=Math.sign(e.deltaY),delta=e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?height:1);
+      if(now-wheelLast>220||direction!==wheelDirection){wheelAmount=0;wheelLocked=false;}wheelLast=now;wheelDirection=direction;if(wheelLocked)return;
+      wheelAmount+=delta;if(Math.abs(wheelAmount)<18)return;wheelLocked=true;wheelAmount=0;view='detail';buildRunning=false;selectedFloor=THREE.MathUtils.clamp(selectedFloor-direction,0,tower.floors);apply();
+    },{passive:false});
+    let drag=null;stage.addEventListener('pointerdown',e=>{if(e.button!==0)return;drag={x:e.clientX,y:e.clientY,floor:selectedFloor,handled:false};stage.setPointerCapture(e.pointerId);});stage.addEventListener('pointermove',e=>{if(!drag||drag.handled)return;const dy=e.clientY-drag.y;if(Math.abs(dy)>=36&&Math.abs(dy)>Math.abs(e.clientX-drag.x)){drag.handled=true;view='detail';selectedFloor=THREE.MathUtils.clamp(drag.floor+Math.sign(dy),0,tower.floors);buildRunning=false;apply();}});stage.addEventListener('pointerup',()=>{drag=null;});stage.addEventListener('pointercancel',()=>{drag=null;});
     document.addEventListener('keydown',e=>{if(/INPUT|BUTTON/.test(document.activeElement.tagName))return;if(e.key==='ArrowUp'||e.key==='ArrowDown'){e.preventDefault();detail(selectedFloor+(e.key==='ArrowUp'?1:-1));}if(e.key==='Home')overview();});
     function resize(){const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;width=w;height=h;aspect=w/h;const px=w<600?1:1.25;renderer.setSize(Math.round(w/px),Math.round(h/px),false);composer.setSize(Math.round(w/px),Math.round(h/px));updateCamera(true);render();}
     let frames=0;
@@ -110,7 +114,7 @@ import stoneRoughnessData from './projects/tower/assets/stone-roughness.jpg';
     function frame(now){raf=0;if(!active||!visible||document.hidden||contextLost)return;const dt=last?Math.min((now-last)/1000,.08):0;last=now;budget+=dt;
       const movingCamera=Math.abs(currentY-targetY)>.003||Math.abs(currentSpan-targetSpan)>.003||currentDirection.distanceToSquared(desiredDirection())>1e-7;
       if(!reduced||movingCamera||buildRunning){if(budget>=1/30||!dt){const elapsed=Math.max(budget,1/60);budget%=1/30;if(!reduced)clock+=elapsed;
-        if(buildRunning){buildProgress=Math.min(totalLevels,buildProgress+elapsed*.48);tower.setState({progress:buildProgress});controls();renderer.shadowMap.needsUpdate=true;if(buildProgress>=totalLevels){buildRunning=false;view='overview';controls();}}
+        if(buildRunning){buildProgress=Math.min(totalLevels,buildProgress+elapsed*.48);tower.setState({progress:buildProgress});renderer.shadowMap.needsUpdate=true;if(buildProgress>=totalLevels){buildRunning=false;view='overview';}controls();}
         updateCamera(false,elapsed);tower.update(clock);render();}
         ensureFrame();
       }else last=0;
