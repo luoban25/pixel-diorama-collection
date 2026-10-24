@@ -39,9 +39,9 @@
   "combinedStructureDetail": true,
   "wheelOneFloor": true,
   "wheelMomentumGuard": true,
-  "dragOneFloor": true,
+  "dragRotatesView": true,
   "headlessRenderSample": {
-    "fps": 30.2,
+    "fps": 29.9,
     "drawCalls": 966,
     "triangles": 2679023,
     "environment": "Windows headless Chrome; not a hardware benchmark"

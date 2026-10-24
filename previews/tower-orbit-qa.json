@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "orthographic": true,
+  "dragRotates": true,
+  "dragKeepsFloor": true,
+  "retainsAngleAcrossFloors": true,
+  "wheelStillSwitchesFloor": true,
+  "pitchLimitsDegrees": [
+    5,
+    75
+  ],
+  "doubleClickReset": true,
+  "keyboardRotation": true,
+  "overviewReset": true,
+  "mobileFits": true,
+  "inactivePaused": true,
+  "reducedMotionStops": true,
+  "defaultAngle": [
+    0.44989281174740514,
+    0.2586883667547579,
+    0.8547963423200696
+  ],
+  "backAngle": [
+    -0.8272929852184383,
+    0.5069577133746969,
+    -0.24203345524588868
+  ],
+  "mobileAngle": [
+    -0.28690413377471247,
+    0.8055667391086747,
+    0.5184093429567007
+  ],
+  "errors": []
+}

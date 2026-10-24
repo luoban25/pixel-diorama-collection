@@ -5,7 +5,7 @@
   <title>SCENE_TITLE</title>
   <style>
     :root{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;color:#4f594f;background:#f4f2ed;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
-    *{box-sizing:border-box}[hidden]{display:none!important}html,body,main,#stage{width:100%;height:100%;margin:0;overflow:hidden;background:#f4f2ed}main{position:relative}#stage{position:absolute;inset:0;touch-action:none;cursor:grab}#stage:active{cursor:grabbing}canvas{display:block;width:100%;height:100%;image-rendering:pixelated}
+    *{box-sizing:border-box}[hidden]{display:none!important}html,body,main,#stage{width:100%;height:100%;margin:0;overflow:hidden;background:#f4f2ed}main{position:relative}#stage{position:absolute;inset:0;touch-action:none;cursor:grab}#stage:active{cursor:grabbing}#stage:focus-visible{outline:2px solid #788967;outline-offset:-3px}canvas{display:block;width:100%;height:100%;image-rendering:pixelated}
     .views{position:absolute;left:50%;top:24px;transform:translateX(-50%);display:flex;gap:3px;padding:4px;border-radius:26px;background:#fffffff2;box-shadow:0 1px 3px #00000008,0 5px 24px #00000008}
     button{height:40px;min-width:64px;padding:0 16px;font:11px/1 Arial,"Microsoft YaHei",sans-serif;white-space:nowrap;color:#747a6f;background:transparent;border:0;border-radius:22px;cursor:pointer;transition:background-color 160ms ease,color 160ms ease,transform 160ms ease}button:hover{background:#f0f1e9;color:#405a48}button[aria-pressed=true]{background:#e9ede2;color:#405a48}button:active{transform:scale(.96)}button:focus-visible,input:focus-visible{outline:2px solid #788967;outline-offset:3px}
     #build-view{width:88px;padding:0}
@@ -19,7 +19,7 @@
 </head>
 <body>
   <main aria-label="五层场景楼，篮球场、池塘、板球场、演出现场和温室农场各占一层，可查看结构和逐层搭建">
-    <div id="stage" role="img" aria-label="等距城市建筑，滚轮或拖动上下浏览楼层"></div>
+    <div id="stage" role="img" tabindex="0" aria-label="可旋转的正交城市建筑，拖动旋转，滚轮切换楼层，左右方向键旋转，Shift加上下方向键调整俯角，上下方向键切层，双击恢复视角" title="拖动旋转 · 滚轮切层 · 双击恢复视角"></div>
     <nav class="views" aria-label="建筑查看方式">
       <button id="overview-view" type="button" aria-pressed="true" title="查看整栋建筑">全景</button>
       <button id="detail-view" type="button" aria-pressed="false" title="放大楼层，滚轮或上下方向键切换">楼层</button>
