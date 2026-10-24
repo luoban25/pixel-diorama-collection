@@ -19,7 +19,8 @@ function buildTower(){
     slab(structure);
     for(const x of [-6.0,0,6.0])for(const z of [-4.45,4.45]){const p=i===3?cover:structure;sb(p,x,H/2,z,A.column,H,A.column);sb(p,x,.18,z,.94,.32,.94);sb(p,x,H-.37,z,.94,.32,.94);}
     for(const z of [-4.45,4.45])sb(i===3?cover:structure,0,H-.35,z,12.76,.70,.76);for(const x of [-6.0,0,6.0])sb(i===3?cover:structure,x,H-.35,0,.76,.70,9.66);
-    const imported=types[i]==='concert'?concertFloor(P,A,interior):types[i]==='greenhouse'?greenhouseFloor(P,A,interior,exterior):installProject(interior,types[i],H,{width:A.innerW,depth:A.innerD,surface:A.surface});modules.push(imported);
+    const figureReference=types[i]==='greenhouse'?(()=>{const reference=modules[0],adults=reference.project.people.filter(p=>p.mode==='standing'),heights=adults.map(p=>{p.root.updateWorldMatrix(true,true);return new THREE.Box3().setFromObject(p.root).getSize(new THREE.Vector3()).y;});return{floor:'1F',kind:'basketball standing adults',height:heights.reduce((sum,h)=>sum+h,0)/heights.length,samples:heights.length};})():null;
+    const imported=types[i]==='concert'?concertFloor(P,A,interior):types[i]==='greenhouse'?greenhouseFloor(P,A,interior,exterior,figureReference):installProject(interior,types[i],H,{width:A.innerW,depth:A.innerD,surface:A.surface});modules.push(imported);
     rail(exterior,-6.15,4.78,-4.8,4.78,.70,M.iron,.32);rail(exterior,4.8,4.78,6.15,4.78,.70,M.iron,.32);rail(exterior,-6.19,-4.66,-6.19,4.78,.74,M.iron,.32);
     for(const x of [-5.8,5.8])plant(exterior,x,4.57,.62,.32,i);
     if(types[i]!=='greenhouse')mossLevel(exterior,i);wall(walls,i);pipeLevel(exterior,i);if(imported.paintArchitecture)imported.paintArchitecture([structure,walls]);
